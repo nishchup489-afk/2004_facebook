@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Thefacebook</title>
+    <link rel="stylesheet" href="/frontend/styles/register.css">
+</head>
+<body>
+
+    <div class="page">
+
+        <header>
+            <div class="logo">[ thefacebook ]</div>
+        </header>
+
+        <div class="register_label">Register</div>
+
+        <main>
+            <div class="alert" id="registerAlert" role="alert" aria-live="polite"></div>
+
+            <div class="register_box">
+                <h1>[ Register for Thefacebook ]</h1>
+
+                <div class="notice">
+                    Please fill out the following information to register for Thefacebook.
+                </div>
+
+                <form class="register" id="register">
+                    <label for="email">Email: </label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required><br>
+
+                    <label for="password">Password: </label>
+                    <input type="password" name="password" id="password" placeholder="Set a password" required><br>
+
+                    <label for="cnfrmPassword">Confirm password: </label>
+                    <input type="password" name="cnfrmPassword" id="cnfrmPassword" placeholder="Re-type your password" required><br>
+
+                    <label for="university">University name: </label>
+                    <input type="text" name="university" id="university" placeholder="Enter your university name" required><br>
+
+                    <label for="firstName">First name: </label>
+                    <input type="text" name="firstName" id="firstName" placeholder="Enter your first name" required><br>
+
+                    <label for="lastName">Last name: </label>
+                    <input type="text" name="lastName" id="lastName" placeholder="Enter your last name" required><br>
+
+                    <button type="submit" id="registerButton">Register</button>
+                </form>
+
+                <div class="login_notice">
+                    Already registered? <a href="index.html">Login</a>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <nav>
+                <a href="about.html">about</a>
+                <a href="contact.html">contact</a>
+                <a href="faq.html">faq</a>
+                <a href="terms.html">terms</a>
+                <a href="privacy.html">privacy</a>
+            </nav>
+
+            <div>
+                a Mark Zuckerberg production<br>
+                <span>Thefacebook &copy; 2004</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="/frontend/scripts/register.js"></script>
+</body>
+</html>

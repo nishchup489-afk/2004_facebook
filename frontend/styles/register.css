@@ -1,0 +1,359 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+}
+
+
+/* =========================
+   PAGE
+   ========================= */
+
+.page {
+    width: 94%;
+    max-width: 1400px;
+    min-height: 75vh;
+    margin: 35px auto;
+    border: 2px solid #3b5998;
+    background: white;
+}
+
+
+/* =========================
+   BIG BLUE HEADER
+   ========================= */
+
+header {
+    height: 110px;
+    background-color: #3b5998;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    right: 40px;
+    bottom: 15px;
+
+    color: white;
+    font-size: 38px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   REGISTER HEADER
+   ========================= */
+
+.register_label {
+    background-color: #3b5998;
+    color: white;
+
+    border-top: 2px solid #29487d;
+    border-bottom: 2px solid #29487d;
+
+    padding: 6px 12px;
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   MAIN
+   ========================= */
+
+main {
+    min-height: 500px;
+    padding: 35px 20px 60px;
+}
+
+
+/* =========================
+   ALERT SPACE
+   ========================= */
+
+.alert {
+    width: 650px;
+    max-width: 95%;
+
+    min-height: 38px;
+
+    margin: 0 auto 20px;
+
+    padding: 9px 12px;
+
+    text-align: center;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* JS can add these */
+
+.alert.error {
+    color: #8b0000;
+    background-color: #fff0f0;
+    border: 1px solid #8b0000;
+}
+
+.alert.success {
+    color: #245824;
+    background-color: #f0fff0;
+    border: 1px solid #245824;
+}
+
+
+/* =========================
+   REGISTER BOX
+   ========================= */
+
+.register_box {
+    width: 700px;
+    max-width: 95%;
+
+    margin: auto;
+
+    border: 2px solid #3b5998;
+
+    background: white;
+}
+
+
+.register_box h1 {
+    margin: 0;
+
+    padding: 20px;
+
+    text-align: center;
+
+    font-size: 24px;
+}
+
+
+/* =========================
+   NOTICE
+   ========================= */
+
+.notice {
+    margin: 0 30px 25px;
+
+    min-height: 45px;
+
+    padding: 12px;
+
+    border: 1px solid #b7c5df;
+
+    background-color: #f4f6fb;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   FORM
+   ========================= */
+
+.register {
+    padding: 10px 45px 30px;
+}
+
+
+.register label {
+    display: inline-block;
+
+    width: 175px;
+
+    margin-bottom: 16px;
+
+    padding-right: 12px;
+
+    text-align: right;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+.register input {
+    width: 340px;
+    height: 30px;
+
+    margin-bottom: 14px;
+
+    padding: 4px 7px;
+
+    border: 1px solid #777;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+
+    outline: none;
+}
+
+
+.register input:focus {
+    border-color: #3b5998;
+}
+
+
+/* =========================
+   REGISTER BUTTON
+   ========================= */
+
+.register button {
+    display: block;
+
+    margin: 15px auto 0;
+
+    padding: 5px 18px;
+
+    border: 1px solid #1d4088;
+
+    background-color: #5b7db1;
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.register button:hover {
+    background-color: #3b5998;
+}
+
+
+/* =========================
+   LOGIN NOTICE
+   ========================= */
+
+.login_notice {
+    padding: 12px;
+
+    border-top: 1px solid #b7c5df;
+
+    text-align: center;
+
+    font-size: 12px;
+}
+
+
+.login_notice a {
+    color: #3b5998;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+.login_notice a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+    border-top: 1px solid #b7c5df;
+
+    padding: 16px 10px;
+
+    text-align: center;
+
+    font-size: 11px;
+}
+
+
+footer nav {
+    margin-bottom: 6px;
+}
+
+
+footer nav a {
+    margin: 0 5px;
+
+    color: #538adc;
+
+    text-decoration: none;
+}
+
+
+footer nav a:hover {
+    text-decoration: underline;
+}
+
+
+footer span {
+    font-size: 10px;
+}
+
+
+/* =========================
+   TABLET / MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .page {
+        width: calc(100% - 16px);
+        margin: 8px auto;
+    }
+
+    header {
+        height: 85px;
+    }
+
+    .logo {
+        right: 20px;
+        bottom: 12px;
+        font-size: 27px;
+    }
+
+    main {
+        padding: 20px 10px 40px;
+    }
+
+    .register_box {
+        width: 100%;
+    }
+
+    .register {
+        padding: 15px 20px 25px;
+    }
+
+    .register label {
+        display: block;
+
+        width: 100%;
+
+        margin-bottom: 5px;
+
+        padding: 0;
+
+        text-align: left;
+    }
+
+    .register input {
+        width: 100%;
+
+        margin-bottom: 15px;
+    }
+
+    .notice {
+        margin: 0 20px 20px;
+    }
+
+    .alert {
+        width: 100%;
+    }
+}
