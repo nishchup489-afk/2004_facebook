@@ -24,143 +24,60 @@ BEGIN;
 -- 1. UNIVERSITIES
 -- ============================================================
 
-INSERT INTO universities (name, email_domain)
+INSERT INTO universities (name, email_domain, location)
 VALUES
-    ('Harvard University', 'harvard.edu'),
-    ('Yale University', 'yale.edu'),
-    ('Massachusetts Institute of Technology', 'mit.edu'),
-    ('Columbia University', 'columbia.edu'),
-    ('Stanford University', 'stanford.edu')
+    ('Harvard University', 'harvard.edu', 'Cambridge, Massachusetts'),
+    ('Yale University', 'yale.edu', 'New Haven, Connecticut'),
+    ('Massachusetts Institute of Technology', 'mit.edu', 'Cambridge, Massachusetts'),
+    ('Columbia University', 'columbia.edu', 'New York, New York'),
+    ('Stanford University', 'stanford.edu', 'Stanford, California')
 ON CONFLICT DO NOTHING;
 
 
 -- ============================================================
--- 2. USERS
--- ============================================================
--- password_hash values are DEVELOPMENT PLACEHOLDERS.
--- When authentication is implemented, generate real hashes
--- using the same hashing library as your FastAPI backend.
+-- 2. STUDENTS
 -- ============================================================
 
-INSERT INTO users (
+INSERT INTO students (
     university_id,
     first_name,
     last_name,
-    email,
-    password_hash
+    university_email,
+    registration_number,
+    registration_code_hash,
+    claimed_at
 )
 SELECT
     u.id,
     data.first_name,
     data.last_name,
-    data.email,
-    data.password_hash
+    data.university_email,
+    data.registration_number,
+    data.registration_code_hash,
+    NOW()
 FROM (
     VALUES
-        (
-            'Harvard University',
-            'Alex',
-            'Carter',
-            'alex.carter@harvard.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Harvard University',
-            'Emily',
-            'Bennett',
-            'emily.bennett@harvard.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Harvard University',
-            'Daniel',
-            'Brooks',
-            'daniel.brooks@harvard.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Harvard University',
-            'Sophia',
-            'Mitchell',
-            'sophia.mitchell@harvard.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Harvard University',
-            'Ryan',
-            'Foster',
-            'ryan.foster@harvard.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Harvard University',
-            'Olivia',
-            'Reed',
-            'olivia.reed@harvard.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Yale University',
-            'Ethan',
-            'Morgan',
-            'ethan.morgan@yale.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Yale University',
-            'Grace',
-            'Turner',
-            'grace.turner@yale.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Massachusetts Institute of Technology',
-            'Noah',
-            'Kim',
-            'noah.kim@mit.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Massachusetts Institute of Technology',
-            'Maya',
-            'Patel',
-            'maya.patel@mit.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Columbia University',
-            'Lucas',
-            'Rivera',
-            'lucas.rivera@columbia.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Columbia University',
-            'Ava',
-            'Thompson',
-            'ava.thompson@columbia.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Stanford University',
-            'James',
-            'Chen',
-            'james.chen@stanford.edu',
-            'DEV_ONLY_HASH'
-        ),
-        (
-            'Stanford University',
-            'Isabella',
-            'Martinez',
-            'isabella.martinez@stanford.edu',
-            'DEV_ONLY_HASH'
-        )
+        ('Harvard University', 'Alex', 'Carter', 'alex.carter@harvard.edu', 'HARV-2004-001', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Harvard University', 'Emily', 'Bennett', 'emily.bennett@harvard.edu', 'HARV-2004-002', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Harvard University', 'Daniel', 'Brooks', 'daniel.brooks@harvard.edu', 'HARV-2004-003', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Harvard University', 'Sophia', 'Mitchell', 'sophia.mitchell@harvard.edu', 'HARV-2004-004', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Harvard University', 'Ryan', 'Foster', 'ryan.foster@harvard.edu', 'HARV-2004-005', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Harvard University', 'Olivia', 'Reed', 'olivia.reed@harvard.edu', 'HARV-2004-006', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Yale University', 'Ethan', 'Morgan', 'ethan.morgan@yale.edu', 'YALE-2004-001', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Yale University', 'Grace', 'Turner', 'grace.turner@yale.edu', 'YALE-2004-002', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Massachusetts Institute of Technology', 'Noah', 'Kim', 'noah.kim@mit.edu', 'MIT-2004-001', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Massachusetts Institute of Technology', 'Maya', 'Patel', 'maya.patel@mit.edu', 'MIT-2004-002', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Columbia University', 'Lucas', 'Rivera', 'lucas.rivera@columbia.edu', 'COL-2004-001', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Columbia University', 'Ava', 'Thompson', 'ava.thompson@columbia.edu', 'COL-2004-002', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Stanford University', 'James', 'Chen', 'james.chen@stanford.edu', 'STAN-2004-001', 'DEV_ONLY_REGISTRATION_CODE_HASH'),
+        ('Stanford University', 'Isabella', 'Martinez', 'isabella.martinez@stanford.edu', 'STAN-2004-002', 'DEV_ONLY_REGISTRATION_CODE_HASH')
 ) AS data(
     university_name,
     first_name,
     last_name,
-    email,
-    password_hash
+    university_email,
+    registration_number,
+    registration_code_hash
 )
 JOIN universities u
     ON u.name = data.university_name
@@ -168,7 +85,49 @@ ON CONFLICT DO NOTHING;
 
 
 -- ============================================================
--- 3. PROFILES
+-- 3. USERS
+-- ============================================================
+
+INSERT INTO users (
+    student_id,
+    first_name,
+    last_name,
+    university_email,
+    password_hash
+)
+SELECT
+    s.id,
+    s.first_name,
+    s.last_name,
+    s.university_email,
+    data.password_hash
+FROM (
+    VALUES
+        ('alex.carter@harvard.edu', 'DEV_ONLY_HASH'),
+        ('emily.bennett@harvard.edu', 'DEV_ONLY_HASH'),
+        ('daniel.brooks@harvard.edu', 'DEV_ONLY_HASH'),
+        ('sophia.mitchell@harvard.edu', 'DEV_ONLY_HASH'),
+        ('ryan.foster@harvard.edu', 'DEV_ONLY_HASH'),
+        ('olivia.reed@harvard.edu', 'DEV_ONLY_HASH'),
+        ('ethan.morgan@yale.edu', 'DEV_ONLY_HASH'),
+        ('grace.turner@yale.edu', 'DEV_ONLY_HASH'),
+        ('noah.kim@mit.edu', 'DEV_ONLY_HASH'),
+        ('maya.patel@mit.edu', 'DEV_ONLY_HASH'),
+        ('lucas.rivera@columbia.edu', 'DEV_ONLY_HASH'),
+        ('ava.thompson@columbia.edu', 'DEV_ONLY_HASH'),
+        ('james.chen@stanford.edu', 'DEV_ONLY_HASH'),
+        ('isabella.martinez@stanford.edu', 'DEV_ONLY_HASH')
+) AS data(
+    university_email,
+    password_hash
+)
+JOIN students s
+    ON LOWER(s.university_email) = LOWER(data.university_email)
+ON CONFLICT DO NOTHING;
+
+
+-- ============================================================
+-- 4. PROFILES
 -- ============================================================
 -- We look users up by email rather than assuming IDs like
 -- user_id = 1, 2, 3...
@@ -433,13 +392,13 @@ FROM (
 )
 
 JOIN users u
-    ON LOWER(u.email) = LOWER(data.email)
+    ON LOWER(u.university_email) = LOWER(data.email)
 
 ON CONFLICT DO NOTHING;
 
 
 -- ============================================================
--- 4. COURSES
+-- 5. COURSES
 -- ============================================================
 
 INSERT INTO courses (
@@ -463,7 +422,7 @@ FROM (
             'CS50',
             'Introduction to Computer Science',
             2004::SMALLINT,
-            'Fall'
+            'fall'
         ),
 
         (
@@ -471,7 +430,7 @@ FROM (
             'ECON10',
             'Principles of Economics',
             2004::SMALLINT,
-            'Fall'
+            'fall'
         ),
 
         (
@@ -479,7 +438,7 @@ FROM (
             'MATH21A',
             'Multivariable Calculus',
             2004::SMALLINT,
-            'Fall'
+            'fall'
         ),
 
         (
@@ -487,7 +446,7 @@ FROM (
             'GOV20',
             'Foundations of Comparative Politics',
             2004::SMALLINT,
-            'Fall'
+            'fall'
         ),
 
         (
@@ -495,7 +454,7 @@ FROM (
             'CPSC201',
             'Introduction to Computer Science',
             2004::SMALLINT,
-            'Fall'
+            'fall'
         ),
 
         (
@@ -503,7 +462,7 @@ FROM (
             'ECON115',
             'Introductory Microeconomics',
             2004::SMALLINT,
-            'Fall'
+            'fall'
         ),
 
         (
@@ -511,7 +470,7 @@ FROM (
             '6.001',
             'Structure and Interpretation of Computer Programs',
             2004::SMALLINT,
-            'Fall'
+            'fall'
         ),
 
         (
@@ -519,7 +478,7 @@ FROM (
             '18.01',
             'Single Variable Calculus',
             2004::SMALLINT,
-            'Fall'
+            'fall'
         ),
 
         (
@@ -527,7 +486,7 @@ FROM (
             'COMS1004',
             'Introduction to Computer Science',
             2004::SMALLINT,
-            'Fall'
+            'fall'
         ),
 
         (
@@ -535,7 +494,7 @@ FROM (
             'CS106A',
             'Programming Methodology',
             2004::SMALLINT,
-            'Fall'
+            'fall'
         )
 
 ) AS data(
@@ -553,7 +512,7 @@ ON CONFLICT DO NOTHING;
 
 
 -- ============================================================
--- 5. FRIENDSHIPS
+-- 6. FRIENDSHIPS
 -- ============================================================
 --
 -- Your friendship table requires:
@@ -717,31 +676,30 @@ FROM (
 )
 
 JOIN users u1
-    ON LOWER(u1.email) = LOWER(data.email_1)
+    ON LOWER(u1.university_email) = LOWER(data.email_1)
 
 JOIN users u2
-    ON LOWER(u2.email) = LOWER(data.email_2)
+    ON LOWER(u2.university_email) = LOWER(data.email_2)
 
 JOIN users requester
-    ON LOWER(requester.email) = LOWER(data.requester_email)
+    ON LOWER(requester.university_email) = LOWER(data.requester_email)
 
 ON CONFLICT DO NOTHING;
 
 
 -- ============================================================
--- 6. ENROLLMENTS
+-- 7. ENROLLMENTS
 -- ============================================================
 
 INSERT INTO enrollments (
-    user_id,
+    student_id,
     course_id
 )
 SELECT
-    u.id,
+    s.id,
     c.id
 FROM (
     VALUES
-
         ('alex.carter@harvard.edu', 'CS50'),
         ('alex.carter@harvard.edu', 'ECON10'),
 
@@ -777,23 +735,20 @@ FROM (
         ('james.chen@stanford.edu', 'CS106A'),
 
         ('isabella.martinez@stanford.edu', 'CS106A')
-
 ) AS data(
-    email,
+    university_email,
     course_code
 )
-
-JOIN users u
-    ON LOWER(u.email) = LOWER(data.email)
+JOIN students s
+    ON LOWER(s.university_email) = LOWER(data.university_email)
 
 JOIN courses c
     ON c.course_code = data.course_code
-    AND c.university_id = u.university_id
+    AND c.university_id = s.university_id
     AND c.academic_year = 2004
-    AND LOWER(c.semester) = 'fall'
+    AND c.semester = 'fall'
 
 ON CONFLICT DO NOTHING;
-
 
 COMMIT;
 
@@ -803,8 +758,10 @@ COMMIT;
 -- ============================================================
 
 SELECT COUNT(*) AS universities FROM universities;
+SELECT COUNT(*) AS students FROM students;
 SELECT COUNT(*) AS users FROM users;
 SELECT COUNT(*) AS profiles FROM profile;
 SELECT COUNT(*) AS friendships FROM friendships;
 SELECT COUNT(*) AS courses FROM courses;
 SELECT COUNT(*) AS enrollments FROM enrollments;
+SELECT COUNT(*) AS sessions FROM sessions;

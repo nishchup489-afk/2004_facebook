@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>University Registration</title>
+    <link rel="stylesheet" href="/frontend/styles/university.css">
+</head>
+
+<body>
+    <div class="alert" id="alert">
+
+    </div>
+
+    <form id="university_form">
+        <select name="universities" id="universities" required>
+            <option value="">Select your university</option>
+
+            <option value="harvard">
+                Harvard University
+            </option>
+
+            <option value="yale">
+                Yale University
+            </option>
+
+            <option value="mit">
+                Massachusetts Institute of Technology
+            </option>
+
+            <option value="columbia">
+                Columbia University
+            </option>
+
+            <option value="stanford">
+                Stanford University
+            </option>
+        </select>
+
+        <input
+            type="text"
+            id="first_name"
+            name="first_name"
+            placeholder="first name"
+            required
+        >
+
+        <input
+            type="text"
+            id="last_name"
+            name="last_name"
+            placeholder="last name"
+            required
+        >
+
+        <button type="submit">
+            submit
+        </button>
+    </form>
+
+    <script src="/frontend/scripts/university.js"></script>
+
+</body>
+</html>

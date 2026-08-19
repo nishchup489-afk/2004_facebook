@@ -1,0 +1,1 @@
+from .university import router

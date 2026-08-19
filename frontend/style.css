@@ -420,3 +420,21 @@ footer span {
         font-size: 14px;
     }
 }
+
+.test-site {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid #d3dbea;
+    font-size: 13px;
+    color: #333;
+}
+
+.test-site a {
+    color: #3b5998;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.test-site a:hover {
+    text-decoration: underline;
+}
