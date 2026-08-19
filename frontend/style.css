@@ -1,30 +1,422 @@
-*{
+* {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
+
+html {
+    background: white;
+}
+
+body {
+    /* Responsive container */
+    width: 94%;
+    max-width: 1400px;
+    min-height: 75vh;
+
+    margin: 35px auto;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+
+    color: #111;
+    background: white;
+
+    border: 2px solid #3b5998;
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+header {
+    height: 110px;
+
+    background-color: #3b5998;
+
+    border-bottom: 2px solid #1d4088;
+}
+
+
+/* =========================
+   MAIN
+   ========================= */
 
 main {
     display: flex;
-    height: 100%;
 
+    min-height: 520px;
 }
+
+
+/* =========================
+   LOGIN / REGISTER LEFT SIDE
+   ========================= */
 
 .auth {
-    border: 2px  dashed rgb(117, 117, 248)  ;
-    margin: 2px;
-    padding: 5px;
-    height: 4rem;
+    width: 230px;
+
+    flex-shrink: 0;
+
+    padding: 18px 12px;
+
+    border-right: 1px solid #b7c5df;
+
+    text-align: right;
 }
 
-.hero{
-    border: 2px solid rgb(117, 117, 248);
-    padding: 5px;
-    margin: 3px;
+
+.auth input {
+    width: 165px;
+    height: 28px;
+
+    margin-bottom: 7px;
+
+    border: 1px solid #777;
+
+    font-size: 14px;
+    padding: 3px 5px;
 }
 
-footer{
-    display: flex;
-    justify-content: center;
-    height: fit-content;
+
+.auth button,
+.buttons button {
+    border: 1px solid #1d4088;
+
+    background-color: #5b7db1;
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    padding: 4px 12px;
+
+    cursor: pointer;
+}
+
+
+.auth button:hover,
+.buttons button:hover {
+    background-color: #3b5998;
+}
+
+
+/* =========================
+   HERO / CONTENT
+   ========================= */
+
+.hero {
+    flex: 1;
+
+    min-width: 0;
+
+    border-left: 1px solid #d3dbea;
+}
+
+
+/* =========================
+   BLUE TITLE BAR
+   ========================= */
+
+.top {
+    background-color: #3b5998;
+
+    color: white;
+
+    font-weight: bold;
+
+    padding: 7px 12px;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   WELCOME TITLE
+   ========================= */
+
+.hero_text {
+    text-align: center;
+
+    margin: 35px 0 40px;
+}
+
+
+.hero_text h1 {
+    margin: 0;
+
+    font-size: clamp(22px, 2vw, 30px);
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   HERO CONTENT
+   ========================= */
+
+.hero > div:nth-child(3) {
+    padding: 0 30px 35px;
+
+    line-height: 1.55;
+
+    font-size: 16px;
+}
+
+
+.hero ul {
+    margin-top: 10px;
+    margin-bottom: 18px;
+
+    padding-left: 35px;
+}
+
+
+.hero li {
+    margin: 4px 0;
+}
+
+
+/* =========================
+   BOTTOM BUTTONS
+   ========================= */
+
+.buttons {
+    text-align: center;
+
+    margin-top: 35px;
+}
+
+
+.buttons button {
+    margin: 0 5px;
+}
+
+
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+    border-top: 1px solid #b7c5df;
+
+    text-align: center;
+
+    padding: 18px 10px 14px;
+
+    font-size: 13px;
+}
+
+
+footer nav {
+    margin-bottom: 8px;
+}
+
+
+footer nav a {
+    color: #538adc;
+
+    text-decoration: none;
+
+    margin: 0 7px;
+}
+
+
+footer nav a:hover {
+    text-decoration: underline;
+}
+
+
+footer span {
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   TABLET
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+    body {
+        width: 96%;
+
+        margin: 20px auto;
+
+        font-size: 15px;
+    }
+
+
+    header {
+        height: 90px;
+    }
+
+
+    main {
+        min-height: 450px;
+    }
+
+
+    .auth {
+        width: 190px;
+
+        padding: 15px 10px;
+    }
+
+
+    .auth input {
+        width: 140px;
+
+        height: 26px;
+    }
+
+
+    .hero_text {
+        margin: 28px 0 30px;
+    }
+
+
+    .hero > div:nth-child(3) {
+        padding: 0 20px 30px;
+
+        font-size: 15px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 650px) {
+
+    body {
+        width: calc(100% - 16px);
+
+        margin: 8px auto;
+
+        min-height: auto;
+    }
+
+
+    header {
+        height: 75px;
+    }
+
+
+    main {
+        display: block;
+
+        min-height: auto;
+    }
+
+
+    /* Login section moves above content */
+
+    .auth {
+        width: 100%;
+
+        padding: 12px;
+
+        border-right: none;
+
+        border-bottom: 1px solid #b7c5df;
+
+        text-align: center;
+    }
+
+
+    .auth input {
+        width: 40%;
+
+        min-width: 120px;
+    }
+
+
+    .hero {
+        width: 100%;
+
+        border-left: none;
+    }
+
+
+    .top {
+        font-size: 14px;
+
+        padding: 7px 10px;
+    }
+
+
+    .hero_text {
+        margin: 25px 10px;
+    }
+
+
+    .hero_text h1 {
+        font-size: 21px;
+    }
+
+
+    .hero > div:nth-child(3) {
+        padding: 0 18px 30px;
+
+        font-size: 15px;
+
+        line-height: 1.5;
+    }
+
+
+    .hero ul {
+        padding-left: 25px;
+    }
+
+
+    .buttons {
+        margin-top: 25px;
+    }
+
+
+    footer {
+        padding: 15px 5px;
+    }
+
+
+    footer nav a {
+        display: inline-block;
+
+        margin: 3px 5px;
+    }
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+   ===================================================== */
+
+@media (max-width: 420px) {
+
+    .auth input {
+        display: block;
+
+        width: 100%;
+
+        margin: 5px auto;
+    }
+
+
+    .auth button {
+        margin-top: 5px;
+    }
+
+
+    .hero_text h1 {
+        font-size: 18px;
+    }
+
+
+    .hero > div:nth-child(3) {
+        padding: 0 14px 25px;
+
+        font-size: 14px;
+    }
 }
