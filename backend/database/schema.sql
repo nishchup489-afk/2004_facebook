@@ -1,0 +1,3 @@
+CREATE TABLE universities (
+    id BIGINT GENERATED ALWAYS AS INTEGER
+)
