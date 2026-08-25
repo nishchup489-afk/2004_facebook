@@ -89,7 +89,14 @@ async function admitToUniversity(e) {
 
         showSuccess("University admission successful.");
 
-        window.location.href = "/frontend/university_portfolio.html";
+        sessionStorage.setItem(
+            "universityAdmission",
+            JSON.stringify(data)
+        );
+
+        window.location.href =
+            `/frontend/university_portfolio.html?student_id=${data.student_id}`;
+
 
     }
 

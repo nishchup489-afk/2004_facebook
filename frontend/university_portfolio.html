@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>University Student Card</title>
+
+    <link
+        rel="stylesheet"
+        href="/frontend/styles/university_portfolio.css"
+    >
+</head>
+
+<body>
+
+    <div class="student-card">
+
+        <div class="card-header">
+            University Student Identity
+        </div>
+
+
+        <div class="card-body">
+
+            <h2 id="student_name"></h2>
+
+
+            <div class="field">
+                <strong>University:</strong>
+
+                <span id="university"></span>
+            </div>
+
+
+            <div class="field">
+                <strong>University Email:</strong>
+
+                <span id="university_email"></span>
+
+                <button
+                    type="button"
+                    class="small-button"
+                    id="copy_email"
+                >
+                    Copy
+                </button>
+
+                <p class="field-note">
+                    Use this email when registering for Thefacebook.
+                    After registration, this will be your login email.
+                </p>
+            </div>
+
+
+            <div class="field">
+                <strong>Registration Number:</strong>
+
+                <span id="registration_number"></span>
+            </div>
+
+
+            <div class="field important">
+
+                <strong>
+                    Thefacebook Registration Code:
+                </strong>
+
+                <span id="registration_code"></span>
+
+                <button
+                    type="button"
+                    class="small-button"
+                    id="copy_code"
+                >
+                    Copy Code
+                </button>
+
+
+                <div class="warning">
+                    This is a one-time registration code.
+                    Copy or save it now.
+
+                    Once it is used to create your Thefacebook
+                    account, it cannot be used again.
+                </div>
+
+            </div>
+
+
+            <div class="url-box">
+
+                <strong>Student Card URL:</strong>
+
+                <span id="student_url"></span>
+
+                <button
+                    type="button"
+                    class="small-button"
+                    id="copy_url"
+                >
+                    Copy URL
+                </button>
+
+                <p class="field-note">
+                    Save this URL if you want to return to this
+                    student record later.
+
+                    Your one-time registration code may not be
+                    recoverable after this browser session,
+                    so save the code separately.
+                </p>
+
+            </div>
+
+
+            <div class="card-actions">
+
+                <button
+                    type="button"
+                    id="print_card"
+                >
+                    Print Card
+                </button>
+
+
+                <button
+                    type="button"
+                    id="download_card"
+                >
+                    Download Card
+                </button>
+
+
+                <a
+                    href="/frontend/index.html"
+                    class="facebook-link"
+                >
+                    Go to Thefacebook
+                </a>
+
+            </div>
+
+
+            <div
+                id="action_message"
+                class="action-message"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <script
+        src="/frontend/scripts/university_portfolio.js"
+    ></script>
+
+</body>
+</html>
