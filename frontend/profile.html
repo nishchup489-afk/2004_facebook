@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Profile | Thefacebook</title>
+
+    <link
+        rel="stylesheet"
+        href="/frontend/styles/profile.css"
+    >
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            [ thefacebook ]
+        </div>
+
+    </header>
+
+
+    <!-- TOP BAR -->
+
+    <div class="top_bar">
+
+        <span id="profileTitle">
+            User's Profile
+        </span>
+
+        <span class="top_links">
+            <a href="/frontend/home.html">home</a>
+            |
+            <a href="#" id="logoutLink">logout</a>
+        </span>
+
+    </div>
+
+
+    <div class="layout">
+
+
+        <!-- LEFT SIDEBAR -->
+
+        <aside class="sidebar">
+
+
+            <!-- SEARCH -->
+
+            <div class="quick_search">
+
+                <input
+                    type="text"
+                    id="quickSearch"
+                    placeholder=""
+                >
+
+                <button id="quickSearchButton">
+                    go
+                </button>
+
+                <div class="quick_search_label">
+                    quick search
+                </div>
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="side_nav">
+
+                <a href="/frontend/profile.html">
+                    My Profile
+                </a>
+
+                <a href="/frontend/friends.html">
+                    My Friends
+                </a>
+
+                <a href="/frontend/courses.html">
+                    My Courses
+                </a>
+
+                <a href="/frontend/search.html">
+                    Search
+                </a>
+
+                <a href="/frontend/complete_profile.html">
+                    Edit Profile
+                </a>
+
+            </nav>
+
+
+        </aside>
+
+
+
+        <!-- MAIN PROFILE -->
+
+        <main class="profile_content">
+
+
+            <div class="profile_columns">
+
+
+                <!-- LEFT PROFILE COLUMN -->
+
+                <div class="profile_left">
+
+
+                    <!-- PICTURE -->
+
+                    <section class="box">
+
+                        <div class="box_header">
+                            Picture
+                        </div>
+
+                        <div class="picture_area">
+
+                            <img
+                                id="profilePicture"
+                                src="/frontend/assets/default-profile.png"
+                                alt="Profile picture"
+                            >
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- FRIEND ACTION -->
+
+                    <section
+                        class="box"
+                        id="friendActionBox"
+                    >
+
+                        <button
+                            id="friendButton"
+                            class="wide_action"
+                        >
+                            Add as Friend
+                        </button>
+
+                    </section>
+
+
+
+                    <!-- CONNECTION -->
+
+                    <section class="box">
+
+                        <div class="box_header">
+                            Connection
+                        </div>
+
+                        <div
+                            class="box_content center_text"
+                            id="connectionStatus"
+                        >
+                            You are not connected.
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- MUTUAL FRIENDS -->
+
+                    <section class="box">
+
+                        <div class="box_header">
+                            Mutual Friends
+                        </div>
+
+                        <div
+                            class="box_content"
+                            id="mutualFriends"
+                        >
+                            You have no mutual friends.
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- SCHOOL FRIENDS -->
+
+                    <section class="box">
+
+                        <div
+                            class="box_header"
+                            id="schoolFriendsTitle"
+                        >
+                            Friends at School
+                        </div>
+
+                        <div
+                            class="friends_grid"
+                            id="schoolFriends"
+                        >
+
+                            <!-- JS inserts friends here -->
+
+                        </div>
+
+                    </section>
+
+
+                </div>
+
+
+
+                <!-- RIGHT INFORMATION COLUMN -->
+
+                <div class="profile_right">
+
+
+                    <section class="box information_box">
+
+                        <div class="box_header">
+                            Information
+                        </div>
+
+
+                        <div class="information_content">
+
+
+                            <!-- ACCOUNT INFO -->
+
+                            <h2>
+                                Account Info:
+                            </h2>
+
+
+                            <div class="info_row">
+                                <span class="label">
+                                    Name:
+                                </span>
+
+                                <span id="fullName">
+                                    -
+                                </span>
+                            </div>
+
+
+                            <div class="info_row">
+                                <span class="label">
+                                    Member Since:
+                                </span>
+
+                                <span id="memberSince">
+                                    -
+                                </span>
+                            </div>
+
+
+                            <div class="info_row">
+                                <span class="label">
+                                    Last Updated:
+                                </span>
+
+                                <span id="lastUpdated">
+                                    -
+                                </span>
+                            </div>
+
+
+
+                            <!-- BASIC INFO -->
+
+                            <h2>
+                                Basic Info:
+                            </h2>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    School:
+                                </span>
+
+                                <span
+                                    id="school"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Status:
+                                </span>
+
+                                <span id="status">
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Sex:
+                                </span>
+
+                                <span
+                                    id="gender"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Residence:
+                                </span>
+
+                                <span
+                                    id="residence"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Birthday:
+                                </span>
+
+                                <span
+                                    id="birthDate"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Home Town:
+                                </span>
+
+                                <span
+                                    id="homeTown"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    High School:
+                                </span>
+
+                                <span
+                                    id="highSchool"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+
+                            <!-- CONTACT INFO -->
+
+                            <h2>
+                                Contact Info:
+                            </h2>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Email:
+                                </span>
+
+                                <span id="email">
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Screenname:
+                                </span>
+
+                                <span
+                                    id="username"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Mobile:
+                                </span>
+
+                                <span
+                                    id="mobile"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row multiline">
+
+                                <span class="label">
+                                    Websites:
+                                </span>
+
+                                <div
+                                    id="websites"
+                                    class="value_list"
+                                >
+                                    -
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- PERSONAL INFO -->
+
+                            <h2>
+                                Personal Info:
+                            </h2>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Looking For:
+                                </span>
+
+                                <span
+                                    id="lookingFor"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Interested In:
+                                </span>
+
+                                <span
+                                    id="interestedIn"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Relationship Status:
+                                </span>
+
+                                <span
+                                    id="relationshipStatus"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Political Views:
+                                </span>
+
+                                <span
+                                    id="politicalViews"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row multiline">
+
+                                <span class="label">
+                                    Interests:
+                                </span>
+
+                                <div
+                                    id="interests"
+                                    class="value_list profile_link"
+                                >
+                                    -
+                                </div>
+
+                            </div>
+
+
+                            <div class="info_row multiline">
+
+                                <span class="label">
+                                    Favorite Music:
+                                </span>
+
+                                <div
+                                    id="favoriteMusic"
+                                    class="value_list profile_link"
+                                >
+                                    -
+                                </div>
+
+                            </div>
+
+
+                            <div class="info_row multiline">
+
+                                <span class="label">
+                                    Favorite Movies:
+                                </span>
+
+                                <div
+                                    id="favoriteMovies"
+                                    class="value_list profile_link"
+                                >
+                                    -
+                                </div>
+
+                            </div>
+
+
+                            <div class="info_row multiline">
+
+                                <span class="label">
+                                    About Me:
+                                </span>
+
+                                <div
+                                    id="bio"
+                                    class="value_list"
+                                >
+                                    -
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </section>
+
+
+                </div>
+
+
+            </div>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <nav>
+
+            <a href="about.html">
+                about
+            </a>
+
+            <a href="contact.html">
+                contact
+            </a>
+
+            <a href="faq.html">
+                faq
+            </a>
+
+            <a href="terms.html">
+                terms
+            </a>
+
+            <a href="privacy.html">
+                privacy
+            </a>
+
+        </nav>
+
+
+        <div>
+
+            a Mark Zuckerberg production
+
+            <br>
+
+            <span>
+                Thefacebook &copy; 2004
+            </span>
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+
+<script src="/frontend/scripts/profile.js"></script>
+
+</body>
+
+</html>

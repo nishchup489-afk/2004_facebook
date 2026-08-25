@@ -6,7 +6,7 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 
-import pytest # type: ignore
+import pytest 
 from argon2 import PasswordHasher
 from fastapi import FastAPI
 from fastapi.testclient import TestClient

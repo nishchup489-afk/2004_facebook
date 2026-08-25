@@ -1,11 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Complete Profile | Thefacebook</title>
+
+    <link
+        rel="stylesheet"
+        href="/frontend/styles/complete_profile.css"
+    >
 </head>
+
 <body>
-    
+
+    <div class="page">
+
+        <header>
+            <div class="logo">
+                [ thefacebook ]
+            </div>
+        </header>
+
+
+        <div class="page_label">
+            Complete Your Profile
+        </div>
+
+
+        <main>
+
+            <div
+                class="alert"
+                id="profileAlert"
+                role="alert"
+                aria-live="polite"
+            ></div>
+
+
+            <div class="profile_box">
+
+                <div class="box_title">
+                    [ Profile Information ]
+                </div>
+
+
+                <div class="notice">
+                    Complete your profile so other students can find
+                    and learn more about you.
+                </div>
+
+
+                <form
+                    id="completeProfileForm"
+                    class="profile_form"
+                >
+
+                    <!-- BASIC INFORMATION -->
+
+                    <section>
+
+                        <h2>Basic Information</h2>
+
+
+                        <div class="form_row">
+
+                            <label for="profile_pic">
+                                Profile picture:
+                            </label>
+
+                            <input
+                                type="file"
+                                id="profile_pic"
+                                name="profile_pic"
+                                accept="image/*"
+                            >
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="username">
+                                Username:
+                            </label>
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                maxlength="50"
+                                placeholder="Choose a username"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="gender">
+                                Gender:
+                            </label>
+
+                            <select
+                                id="gender"
+                                name="gender"
+                            >
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="Male">
+                                    Male
+                                </option>
+
+                                <option value="Female">
+                                    Female
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="status">
+                                Status:
+                            </label>
+
+                            <input
+                                type="text"
+                                id="status"
+                                name="status"
+                                maxlength="50"
+                                placeholder="Student"
+                            >
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="birth_date">
+                                Birthday:
+                            </label>
+
+                            <input
+                                type="date"
+                                id="birth_date"
+                                name="birth_date"
+                            >
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- SCHOOL / LOCATION -->
+
+                    <section>
+
+                        <h2>School & Location</h2>
+
+
+                        <div class="form_row">
+
+                            <label for="residence">
+                                Residence:
+                            </label>
+
+                            <input
+                                type="text"
+                                id="residence"
+                                name="residence"
+                                placeholder="Kirkland House"
+                            >
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="home_town">
+                                Hometown:
+                            </label>
+
+                            <input
+                                type="text"
+                                id="home_town"
+                                name="home_town"
+                                maxlength="200"
+                                placeholder="Brooklyn, NY"
+                            >
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="high_school">
+                                High school:
+                            </label>
+
+                            <input
+                                type="text"
+                                id="high_school"
+                                name="high_school"
+                                maxlength="250"
+                                placeholder="Your high school"
+                            >
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- CONTACT -->
+
+                    <section>
+
+                        <h2>Contact Information</h2>
+
+
+                        <div class="form_row">
+
+                            <label for="mobile">
+                                Mobile:
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="mobile"
+                                name="mobile"
+                                maxlength="30"
+                                placeholder="Phone number"
+                            >
+
+                        </div>
+
+
+                        <div class="form_row textarea_row">
+
+                            <label for="websites">
+                                Websites:
+                            </label>
+
+                            <textarea
+                                id="websites"
+                                name="websites"
+                                rows="3"
+                                placeholder="example.com, github.com/example"
+                            ></textarea>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- RELATIONSHIP -->
+
+                    <section>
+
+                        <h2>Personal Information</h2>
+
+
+                        <div class="form_row">
+
+                            <label for="looking_for">
+                                Looking for:
+                            </label>
+
+                            <select
+                                id="looking_for"
+                                name="looking_for"
+                            >
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="Friendship">
+                                    Friendship
+                                </option>
+
+                                <option value="Dating">
+                                    Dating
+                                </option>
+
+                                <option value="Relationship">
+                                    Relationship
+                                </option>
+
+                                <option value="Networking">
+                                    Networking
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="interested_in">
+                                Interested in:
+                            </label>
+
+                            <select
+                                id="interested_in"
+                                name="interested_in"
+                            >
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="Men">
+                                    Men
+                                </option>
+
+                                <option value="Women">
+                                    Women
+                                </option>
+
+                                <option value="Men and Women">
+                                    Men and Women
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="relationship_status">
+                                Relationship:
+                            </label>
+
+                            <select
+                                id="relationship_status"
+                                name="relationship_status"
+                            >
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="Single">
+                                    Single
+                                </option>
+
+                                <option value="In a relationship">
+                                    In a relationship
+                                </option>
+
+                                <option value="Engaged">
+                                    Engaged
+                                </option>
+
+                                <option value="Married">
+                                    Married
+                                </option>
+
+                                <option value="It's complicated">
+                                    It's complicated
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="political_views">
+                                Political views:
+                            </label>
+
+                            <input
+                                type="text"
+                                id="political_views"
+                                name="political_views"
+                                maxlength="100"
+                                placeholder="Optional"
+                            >
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- INTERESTS -->
+
+                    <section>
+
+                        <h2>Interests</h2>
+
+
+                        <div class="form_row textarea_row">
+
+                            <label for="interests">
+                                Interests:
+                            </label>
+
+                            <textarea
+                                id="interests"
+                                name="interests"
+                                rows="3"
+                                placeholder="Programming, basketball, movies..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form_row textarea_row">
+
+                            <label for="favorite_music">
+                                Favorite music:
+                            </label>
+
+                            <textarea
+                                id="favorite_music"
+                                name="favorite_music"
+                                rows="3"
+                                placeholder="Artists or songs..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form_row textarea_row">
+
+                            <label for="favorite_movies">
+                                Favorite movies:
+                            </label>
+
+                            <textarea
+                                id="favorite_movies"
+                                name="favorite_movies"
+                                rows="3"
+                                placeholder="Movies you like..."
+                            ></textarea>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- BIO -->
+
+                    <section>
+
+                        <h2>About Me</h2>
+
+
+                        <div class="form_row textarea_row">
+
+                            <label for="bio">
+                                About me:
+                            </label>
+
+                            <textarea
+                                id="bio"
+                                name="bio"
+                                rows="6"
+                                placeholder="Write something about yourself..."
+                            ></textarea>
+
+                        </div>
+
+                    </section>
+
+
+                    <div class="form_actions">
+
+                        <button
+                            type="submit"
+                            id="saveProfileButton"
+                        >
+                            Save Profile
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </main>
+
+
+        <footer>
+
+            <nav>
+                <a href="about.html">about</a>
+                <a href="contact.html">contact</a>
+                <a href="faq.html">faq</a>
+                <a href="terms.html">terms</a>
+                <a href="privacy.html">privacy</a>
+            </nav>
+
+            <div>
+                a Mark Zuckerberg production
+                <br>
+
+                <span>
+                    Thefacebook &copy; 2004
+                </span>
+            </div>
+
+        </footer>
+
+    </div>
+
+
+    <script
+        src="/frontend/scripts/complete_profile.js"
+    ></script>
+
 </body>
+
 </html>
