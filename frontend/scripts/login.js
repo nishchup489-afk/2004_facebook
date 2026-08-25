@@ -22,20 +22,25 @@ async function logIn(e) {
     e.preventDefault();
 
     const credentials = {
-        email: email.value.trim(),
+        university_email: email.value.trim(),
         password: password.value
     };
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/login", {
-            method: "POST",
+        const response = await fetch(
+            "http://127.0.0.1:8000/login",
+            {
+                method: "POST",
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-            body: JSON.stringify(credentials)
-        });
+                credentials: "include",
+
+                body: JSON.stringify(credentials)
+            }
+        );
 
         const data = await response.json();
 
@@ -45,6 +50,8 @@ async function logIn(e) {
         }
 
         console.log("Logged in:", data);
+
+        window.location.href = "/frontend/home.html";
 
     } catch (error) {
         console.error(error);

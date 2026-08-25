@@ -1,11 +1,11 @@
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const cnfrmPassword = document.getElementById("cnfrmPassword");
-const university = document.getElementById("university");
 const firstname = document.getElementById("firstName");
 const lastname = document.getElementById("lastName");
 const registerForm = document.getElementById("register");
 const alertBox = document.getElementById("registerAlert");
+const registrationCode = document.getElementById("registrationCode");
 
 
 function showError(message) {
@@ -32,22 +32,28 @@ async function Register(e) {
     }
 
     const credentials = {
-        email: email.value.trim(),
+        university_email: email.value.trim(),
         password: password.value,
-        cnfrmPassword: cnfrmPassword.value,
-        university: university.value.trim(),
-        firstname: firstname.value.trim(),
-        lastname: lastname.value.trim()
+        first_name: firstname.value.trim(),
+        last_name: lastname.value.trim(),
+        registration_code: registrationCode.value.trim()
     };
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(credentials)
-        });
+        const response = await fetch(
+            "http://127.0.0.1:8000/register",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                credentials: "include",
+
+                body: JSON.stringify(credentials)
+            }
+        );
 
         const data = await response.json();
 
@@ -68,9 +74,9 @@ async function Register(e) {
             return;
         }
 
-        console.log("Registered successfully");
-
         showSuccess("Registered successfully.");
+
+        window.location.href = "/frontend/complete_profile.html";
 
     } catch (error) {
         console.error(error);
