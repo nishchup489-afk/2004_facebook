@@ -197,4 +197,4 @@ So we only change the backend server URL in one place instead of changing every 
 
 ---
 
-[← Back to Index](./index.md)
+[← Back to Index](./README.md)
