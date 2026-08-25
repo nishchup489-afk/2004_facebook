@@ -2,4 +2,9 @@
 
 ## Backend
 
+0. [Database Docs](./0_database_docs.md)
 1. [Frontend Backend Connection](./1_frontend_backend_connection.md)
+2. [University Admission Flow](./2_university_admission_flow.md)
+3. [Registration Flow](./3_registration_flow.md)
+4. [Login Flow](./4_login_flow.md)
+5. [Session Flow](./5_session_flow.md)
