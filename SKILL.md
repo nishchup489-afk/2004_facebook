@@ -332,6 +332,11 @@ Only include things actually supported by the feature.
 
 if committing do specifically like 
 
+do it after each stuff. 
+
+For you you one test passed commit.
+one docs added that docs commit.
+
 "Feature added : ........... "
 "Bug fix: ............. "
 "Test passed : .............. "
