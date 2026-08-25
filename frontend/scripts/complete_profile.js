@@ -4,6 +4,9 @@ const completeProfileForm =
 const alertBox =
     document.getElementById("profileAlert");
 
+const profilePicture =
+    document.getElementById("profile_pic");
+
 
 function showError(message) {
     alertBox.textContent = message;
@@ -90,39 +93,68 @@ async function saveProfile(e) {
     }
 
 
-    const profile = {
-        username: username,
+    const formData = new FormData();
 
-        gender: gender || null,
-        status: status || null,
-        residence: residence || null,
-        birth_date: birthDate || null,
-        home_town: homeTown || null,
-        high_school: highSchool || null,
-        mobile: mobile || null,
+    formData.append("username", username);
 
-        websites: commaSeparatedToArray(websites),
+    formData.append("gender", gender);
+    formData.append("status", status);
+    formData.append("residence", residence);
+    formData.append("birth_date", birthDate);
+    formData.append("home_town", homeTown);
+    formData.append("high_school", highSchool);
+    formData.append("mobile", mobile);
 
-        looking_for: lookingFor || null,
-        interested_in: interestedIn || null,
+    formData.append(
+        "websites",
+        JSON.stringify(
+            commaSeparatedToArray(websites)
+        )
+    );
 
-        relationship_status:
-            relationshipStatus || null,
+    formData.append("looking_for", lookingFor);
+    formData.append("interested_in", interestedIn);
 
-        political_views:
-            politicalViews || null,
+    formData.append(
+        "relationship_status",
+        relationshipStatus
+    );
 
-        interests:
-            commaSeparatedToArray(interests),
+    formData.append(
+        "political_views",
+        politicalViews
+    );
 
-        favorite_music:
-            commaSeparatedToArray(favoriteMusic),
+    formData.append(
+        "interests",
+        JSON.stringify(
+            commaSeparatedToArray(interests)
+        )
+    );
 
-        favorite_movies:
-            commaSeparatedToArray(favoriteMovies),
+    formData.append(
+        "favorite_music",
+        JSON.stringify(
+            commaSeparatedToArray(favoriteMusic)
+        )
+    );
 
-        bio: bio || null
-    };
+    formData.append(
+        "favorite_movies",
+        JSON.stringify(
+            commaSeparatedToArray(favoriteMovies)
+        )
+    );
+
+    formData.append("bio", bio);
+
+
+    if (profilePicture.files[0]) {
+        formData.append(
+            "profile_pic",
+            profilePicture.files[0]
+        );
+    }
 
 
     try {
@@ -131,13 +163,9 @@ async function saveProfile(e) {
             {
                 method: "POST",
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
                 credentials: "include",
 
-                body: JSON.stringify(profile)
+                body: formData
             }
         );
 
@@ -155,13 +183,8 @@ async function saveProfile(e) {
                 message = data.detail;
             }
 
-            else if (Array.isArray(data.detail)) {
-                message = data.detail
-                    .map(error => error.msg)
-                    .join(", ");
-            }
-
             showError(message);
+
             return;
         }
 
@@ -173,6 +196,7 @@ async function saveProfile(e) {
 
         window.location.href =
             "/frontend/profile.html";
+
 
     } catch (error) {
         console.error(error);
