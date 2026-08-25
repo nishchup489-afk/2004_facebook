@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from fastapi import Request
 from app.config.settings import pool
-from backend.app.service.auth import _hash_session_token
+from app.service.auth import _hash_session_token
 
 
 load_dotenv()
