@@ -356,3 +356,5 @@ def logout_user(raw_session_token: str) -> None:
                 """,
                 (session_token_hash,),
             )
+
+
