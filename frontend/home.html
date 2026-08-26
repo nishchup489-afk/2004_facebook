@@ -1,11 +1,511 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Home | Thefacebook</title>
+
+    <link
+        rel="stylesheet"
+        href="/frontend/styles/home.css"
+    >
 </head>
+
+
 <body>
-    
+
+<div class="page">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            [ thefacebook ]
+        </div>
+
+    </header>
+
+
+    <!-- TOP BAR -->
+
+    <div class="top_bar">
+
+        <span id="welcomeTitle">
+            Welcome
+        </span>
+
+        <span class="top_links">
+
+            <a href="/frontend/home.html">
+                home
+            </a>
+
+            |
+
+            <a
+                href="#"
+                id="profileLink"
+            >
+                my profile
+            </a>
+
+            |
+
+            <a
+                href="#"
+                id="logoutLink"
+            >
+                logout
+            </a>
+
+        </span>
+
+    </div>
+
+
+    <!-- PAGE BODY -->
+
+    <div class="layout">
+
+
+        <!-- LEFT SIDEBAR -->
+
+        <aside class="sidebar">
+
+
+            <!-- QUICK SEARCH -->
+
+            <section class="quick_search">
+
+                <input
+                    type="text"
+                    id="quickSearch"
+                    placeholder=""
+                >
+
+                <button id="quickSearchButton">
+                    go
+                </button>
+
+                <div class="quick_search_label">
+                    quick search
+                </div>
+
+            </section>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="side_nav">
+
+                <a
+                    href="#"
+                    id="sideProfileLink"
+                >
+                    My Profile
+                </a>
+
+                <a href="/frontend/friends.html">
+                    My Friends
+                </a>
+
+                <a href="/frontend/courses.html">
+                    My Courses
+                </a>
+
+                <a href="/frontend/search.html">
+                    Search
+                </a>
+
+                <a href="/frontend/complete_profile.html">
+                    Edit Profile
+                </a>
+
+            </nav>
+
+
+            <!-- USER CARD -->
+
+            <section class="box user_card">
+
+                <div class="box_header">
+                    My Account
+                </div>
+
+                <div class="user_card_content">
+
+                    <img
+                        id="homeProfilePicture"
+                        src="/frontend/assets/default-profile.png"
+                        alt="Profile picture"
+                    >
+
+                    <div class="user_card_info">
+
+                        <a
+                            href="#"
+                            id="homeUserName"
+                        >
+                            -
+                        </a>
+
+                        <span id="homeUniversity">
+                            -
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </aside>
+
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main_content">
+
+
+            <!-- WELCOME -->
+
+            <section class="box">
+
+                <div class="box_header">
+                    Welcome to Thefacebook
+                </div>
+
+                <div class="box_content welcome_box">
+
+                    <p>
+                        Welcome,
+                        <strong id="welcomeName">
+                            student
+                        </strong>.
+                    </p>
+
+                    <p>
+                        Thefacebook is an online directory
+                        that connects people through social
+                        networks at colleges.
+                    </p>
+
+                    <p>
+                        Use the links on this page to browse
+                        your school, find classmates, manage
+                        friends, and update your profile.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- TWO COLUMN DASHBOARD -->
+
+            <div class="dashboard_grid">
+
+
+                <!-- LEFT DASHBOARD COLUMN -->
+
+                <div class="dashboard_column">
+
+
+                    <!-- FRIEND REQUESTS -->
+
+                    <section class="box">
+
+                        <div class="box_header">
+                            Friend Requests
+                        </div>
+
+                        <div
+                            class="box_content"
+                            id="friendRequests"
+                        >
+
+                            <p class="empty_message">
+                                You have no new friend requests.
+                            </p>
+
+                        </div>
+
+                        <div class="box_footer">
+
+                            <a href="/frontend/friends.html">
+                                view all friends
+                            </a>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- MY NETWORK -->
+
+                    <section class="box">
+
+                        <div class="box_header">
+                            My Network
+                        </div>
+
+                        <div class="box_content">
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    School:
+                                </span>
+
+                                <span
+                                    id="networkSchool"
+                                    class="profile_link"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Friends:
+                                </span>
+
+                                <span id="friendCount">
+                                    0
+                                </span>
+
+                            </div>
+
+
+                            <div class="info_row">
+
+                                <span class="label">
+                                    Students:
+                                </span>
+
+                                <span id="studentCount">
+                                    -
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="box_footer">
+
+                            <a href="/frontend/search.html">
+                                browse people
+                            </a>
+
+                        </div>
+
+                    </section>
+
+
+                </div>
+
+
+
+                <!-- RIGHT DASHBOARD COLUMN -->
+
+                <div class="dashboard_column">
+
+
+                    <!-- MY COURSES -->
+
+                    <section class="box">
+
+                        <div class="box_header">
+                            My Courses
+                        </div>
+
+                        <div
+                            class="box_content"
+                            id="myCourses"
+                        >
+
+                            <p class="empty_message">
+                                You have not added any courses.
+                            </p>
+
+                        </div>
+
+                        <div class="box_footer">
+
+                            <a href="/frontend/courses.html">
+                                view my courses
+                            </a>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- DIRECTORY -->
+
+                    <section class="box">
+
+                        <div class="box_header">
+                            Thefacebook Directory
+                        </div>
+
+                        <div class="directory_links">
+
+                            <a href="/frontend/search.html">
+                                Search for People
+                            </a>
+
+                            <a href="/frontend/friends.html">
+                                Browse Friends
+                            </a>
+
+                            <a href="/frontend/courses.html">
+                                Browse Courses
+                            </a>
+
+                            <a
+                                href="#"
+                                id="directoryProfileLink"
+                            >
+                                View My Profile
+                            </a>
+
+                        </div>
+
+                    </section>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- RECENT ACCOUNT ACTIVITY -->
+
+            <section class="box">
+
+                <div class="box_header">
+                    My Thefacebook
+                </div>
+
+                <div class="box_content account_summary">
+
+                    <div class="summary_item">
+
+                        <strong id="summaryFriends">
+                            0
+                        </strong>
+
+                        <span>
+                            Friends
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary_item">
+
+                        <strong id="summaryRequests">
+                            0
+                        </strong>
+
+                        <span>
+                            Friend Requests
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary_item">
+
+                        <strong id="summaryCourses">
+                            0
+                        </strong>
+
+                        <span>
+                            Courses
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <nav>
+
+            <a href="/frontend/about.html">
+                about
+            </a>
+
+            <a href="/frontend/contact.html">
+                contact
+            </a>
+
+            <a href="/frontend/faq.html">
+                faq
+            </a>
+
+            <a href="/frontend/terms.html">
+                terms
+            </a>
+
+            <a href="/frontend/privacy.html">
+                privacy
+            </a>
+
+        </nav>
+
+
+        <div>
+
+            a Mark Zuckerberg production
+
+            <br>
+
+            <span>
+                Thefacebook &copy; 2004
+            </span>
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+
+<script src="/frontend/scripts/home.js"></script>
+
 </body>
+
 </html>

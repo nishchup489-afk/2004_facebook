@@ -231,6 +231,25 @@ CREATE TABLE sessions (
 );
 
 
+CREATE TABLE wall_posts (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+
+    profile_owner_id BIGINT NOT NULL,
+    author_id BIGINT NOT NULL,
+
+    body TEXT NOT NULL,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    FOREIGN KEY (profile_owner_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (author_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
 CREATE INDEX idx_students_university
 ON students (university_id);
 
