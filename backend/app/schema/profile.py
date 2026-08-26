@@ -2,12 +2,14 @@ from datetime import date, datetime
 
 from pydantic import (
     BaseModel,
+    EmailStr,
     Field,
     field_validator,
 )
 
 
 class ProfileCreate(BaseModel):
+
     username: str = Field(
         min_length=1,
         max_length=50,
@@ -42,7 +44,9 @@ class ProfileCreate(BaseModel):
         max_length=30,
     )
 
-    websites: list[str] = []
+    websites: list[str] = Field(
+        default_factory=list
+    )
 
     looking_for: str | None = Field(
         default=None,
@@ -66,17 +70,39 @@ class ProfileCreate(BaseModel):
         max_length=100,
     )
 
-    interests: list[str] = []
+    interests: list[str] = Field(
+        default_factory=list
+    )
 
-    favorite_music: list[str] = []
+    favorite_music: list[str] = Field(
+        default_factory=list
+    )
 
-    favorite_movies: list[str] = []
+    favorite_movies: list[str] = Field(
+        default_factory=list
+    )
 
     bio: str | None = None
 
 
+    @field_validator("username")
+    @classmethod
+    def clean_username(
+        cls,
+        value: str,
+    ) -> str:
+
+        value = value.strip()
+
+        if not value:
+            raise ValueError(
+                "Username cannot be empty."
+            )
+
+        return value
+
+
     @field_validator(
-        "username",
         "gender",
         "status",
         "residence",
@@ -93,7 +119,8 @@ class ProfileCreate(BaseModel):
     def strip_text(
         cls,
         value: str | None,
-    ):
+    ) -> str | None:
+
         if value is None:
             return None
 
@@ -122,6 +149,7 @@ class ProfileCreate(BaseModel):
 
 
 class ProfileResponse(BaseModel):
+
     user_id: int
 
     profile_pic: str | None
@@ -129,12 +157,15 @@ class ProfileResponse(BaseModel):
     username: str
 
     gender: str | None
+
     status: str | None
+
     residence: str | None
 
     birth_date: date | None
 
     home_town: str | None
+
     high_school: str | None
 
     mobile: str | None
@@ -142,18 +173,78 @@ class ProfileResponse(BaseModel):
     websites: list[str]
 
     looking_for: str | None
+
     interested_in: str | None
 
     relationship_status: str | None
+
     relationship_with: int | None
 
     political_views: str | None
 
     interests: list[str]
+
     favorite_music: list[str]
+
     favorite_movies: list[str]
 
     bio: str | None
 
     created_at: datetime
+
+    updated_at: datetime
+
+
+class ProfileViewResponse(BaseModel):
+
+    user_id: int
+
+    is_self: bool
+
+    first_name: str
+
+    last_name: str
+
+    university_email: EmailStr
+
+    university_name: str
+
+    profile_pic: str | None
+
+    username: str
+
+    gender: str | None
+
+    status: str | None
+
+    residence: str | None
+
+    birth_date: date | None
+
+    home_town: str | None
+
+    high_school: str | None
+
+    mobile: str | None
+
+    websites: list[str]
+
+    looking_for: str | None
+
+    interested_in: str | None
+
+    relationship_status: str | None
+
+    political_views: str | None
+
+    interests: list[str]
+
+    favorite_music: list[str]
+
+    favorite_movies: list[str]
+
+    bio: str | None
+
+    created_at: datetime
+
     updated_at: datetime

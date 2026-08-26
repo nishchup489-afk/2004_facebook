@@ -1,6 +1,25 @@
 const API_URL = "http://127.0.0.1:8000";
 
 
+/*
+    GET USER ID FROM URL
+
+    profile.html?user_id=15
+                     ↓
+                userId = "15"
+*/
+
+const params = new URLSearchParams(
+    window.location.search
+);
+
+const userId = params.get("user_id");
+
+
+/*
+    HTML ELEMENTS
+*/
+
 const logoutLink =
     document.getElementById("logoutLink");
 
@@ -10,8 +29,22 @@ const quickSearch =
 const quickSearchButton =
     document.getElementById("quickSearchButton");
 
+const friendActionBox =
+    document.getElementById("friendActionBox");
+
+const friendButton =
+    document.getElementById("friendButton");
+
+const connectionStatus =
+    document.getElementById("connectionStatus");
+
+
+/*
+    DISPLAY HELPERS
+*/
 
 function displayValue(value) {
+
     if (
         value === null ||
         value === undefined ||
@@ -25,6 +58,7 @@ function displayValue(value) {
 
 
 function displayList(value) {
+
     if (!Array.isArray(value)) {
         return "-";
     }
@@ -38,6 +72,7 @@ function displayList(value) {
 
 
 function formatDate(value) {
+
     if (!value) {
         return "-";
     }
@@ -53,6 +88,7 @@ function formatDate(value) {
 
 
 function setText(id, value) {
+
     const element =
         document.getElementById(id);
 
@@ -64,6 +100,59 @@ function setText(id, value) {
         displayValue(value);
 }
 
+
+/*
+    PROFILE OWNER / FRIEND UI
+*/
+
+function setupProfileActions(profile) {
+
+    /*
+        Backend should return:
+
+        is_self: true / false
+    */
+
+    if (profile.is_self) {
+
+        if (friendActionBox) {
+            friendActionBox.style.display =
+                "none";
+        }
+
+        if (connectionStatus) {
+            connectionStatus.textContent =
+                "This is your profile.";
+        }
+
+        return;
+    }
+
+
+    /*
+        Someone else's profile
+    */
+
+    if (friendActionBox) {
+        friendActionBox.style.display =
+            "block";
+    }
+
+    if (friendButton) {
+        friendButton.textContent =
+            "Add as Friend";
+    }
+
+    if (connectionStatus) {
+        connectionStatus.textContent =
+            "You are not connected.";
+    }
+}
+
+
+/*
+    PUT PROFILE DATA INTO HTML
+*/
 
 function populateProfile(profile) {
 
@@ -96,7 +185,10 @@ function populateProfile(profile) {
             "profilePicture"
         );
 
-    if (profile.profile_pic) {
+    if (
+        profilePicture &&
+        profile.profile_pic
+    ) {
         profilePicture.src =
             profile.profile_pic;
     }
@@ -108,17 +200,21 @@ function populateProfile(profile) {
 
     setText(
         "fullName",
-        fullName || "-"
+        fullName
     );
 
     setText(
         "memberSince",
-        formatDate(profile.created_at)
+        formatDate(
+            profile.created_at
+        )
     );
 
     setText(
         "lastUpdated",
-        formatDate(profile.updated_at)
+        formatDate(
+            profile.updated_at
+        )
     );
 
 
@@ -148,7 +244,9 @@ function populateProfile(profile) {
 
     setText(
         "birthDate",
-        formatDate(profile.birth_date)
+        formatDate(
+            profile.birth_date
+        )
     );
 
     setText(
@@ -183,7 +281,9 @@ function populateProfile(profile) {
 
     setText(
         "websites",
-        displayList(profile.websites)
+        displayList(
+            profile.websites
+        )
     );
 
 
@@ -213,7 +313,9 @@ function populateProfile(profile) {
 
     setText(
         "interests",
-        displayList(profile.interests)
+        displayList(
+            profile.interests
+        )
     );
 
     setText(
@@ -237,40 +339,39 @@ function populateProfile(profile) {
 
 
     /*
-        This is currently MY profile.
-
-        So "Add as Friend" makes no sense here.
+        PROFILE OWNER / FRIEND UI
     */
 
-    const friendActionBox =
-        document.getElementById(
-            "friendActionBox"
-        );
-
-    if (friendActionBox) {
-        friendActionBox.style.display =
-            "none";
-    }
-
-
-    const connectionStatus =
-        document.getElementById(
-            "connectionStatus"
-        );
-
-    if (connectionStatus) {
-        connectionStatus.textContent =
-            "This is your profile.";
-    }
+    setupProfileActions(profile);
 }
 
 
+/*
+    LOAD PROFILE FROM BACKEND
+*/
+
 async function loadProfile() {
+
+    /*
+        A profile page needs:
+
+        profile.html?user_id=X
+    */
+
+    if (!userId) {
+
+        console.error(
+            "No user_id provided in URL."
+        );
+
+        return;
+    }
+
 
     try {
 
         const response = await fetch(
-            `${API_URL}/profile`,
+            `${API_URL}/profile/${userId}`,
             {
                 method: "GET",
 
@@ -278,6 +379,10 @@ async function loadProfile() {
             }
         );
 
+
+        /*
+            Not logged in / expired session
+        */
 
         if (response.status === 401) {
 
@@ -315,6 +420,10 @@ async function loadProfile() {
     }
 }
 
+
+/*
+    LOGOUT
+*/
 
 async function logOut(event) {
 
@@ -357,10 +466,15 @@ async function logOut(event) {
 }
 
 
+/*
+    QUICK SEARCH
+*/
+
 function search() {
 
     const query =
         quickSearch.value.trim();
+
 
     if (!query) {
         return;
@@ -374,30 +488,47 @@ function search() {
 }
 
 
-logoutLink.addEventListener(
-    "click",
-    logOut
-);
+/*
+    EVENT LISTENERS
+*/
+
+if (logoutLink) {
+
+    logoutLink.addEventListener(
+        "click",
+        logOut
+    );
+}
 
 
-quickSearchButton.addEventListener(
-    "click",
-    search
-);
+if (quickSearchButton) {
+
+    quickSearchButton.addEventListener(
+        "click",
+        search
+    );
+}
 
 
-quickSearch.addEventListener(
-    "keydown",
-    event => {
+if (quickSearch) {
 
-        if (event.key === "Enter") {
+    quickSearch.addEventListener(
+        "keydown",
+        event => {
 
-            event.preventDefault();
+            if (event.key === "Enter") {
 
-            search();
+                event.preventDefault();
+
+                search();
+            }
         }
-    }
-);
+    );
+}
 
+
+/*
+    PAGE START
+*/
 
 loadProfile();
