@@ -431,7 +431,7 @@ frontend/scripts/profile.js
 It loads:
 
 ```text
-GET /profile
+GET /profile/{user_id}
 ```
 
 with:

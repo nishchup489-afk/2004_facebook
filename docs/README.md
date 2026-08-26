@@ -10,3 +10,4 @@
 5. [Session Flow](./5_session_flow.md)
 6. [Cloudinary Setup](./6_cloudinary_setup.md)
 7. [Profile Creation Flow](./7_profile.md)
+8. [GET Profile Flow](./8_get_profile.md)
