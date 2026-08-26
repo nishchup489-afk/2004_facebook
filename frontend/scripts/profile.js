@@ -38,10 +38,16 @@ const friendButton =
 const connectionStatus =
     document.getElementById("connectionStatus");
 
+const myProfile = document.getElementById("myProfile")
+
 
 /*
     DISPLAY HELPERS
 */
+
+if (userId){
+    myProfile.href = `/frontend/profile.html?user_id=${userId}`
+}
 
 function displayValue(value) {
 
