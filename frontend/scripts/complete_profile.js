@@ -195,7 +195,7 @@ async function saveProfile(e) {
 
 
         window.location.href =
-            "/frontend/profile.html";
+            `/frontend/profile.html?user_id=${data.user_id}`;
 
 
     } catch (error) {

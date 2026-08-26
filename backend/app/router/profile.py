@@ -10,21 +10,31 @@ from fastapi import (
     status,
 )
 
+from pydantic import ValidationError
+
 from app.schema import (
     ProfileCreate,
     ProfileResponse,
+    ProfileViewResponse,
 )
 
-from app.service.profile import create_profile
-from app.service.get_user_id import get_user_id_from_session
+from app.service.get_user_id import (
+    get_user_id_from_session,
+)
+
+from app.service.profile import (
+    get_profile,
+    save_profile,
+)
 
 
 router = APIRouter(
-    tags=["profile"]
+    prefix="/profile",
+    tags=["profile"],
 )
 
 
-def _empty_to_none(
+def empty_to_none(
     value: str | None,
 ) -> str | None:
 
@@ -36,7 +46,7 @@ def _empty_to_none(
     return value or None
 
 
-def _parse_json_list(
+def parse_json_list(
     value: str,
 ) -> list[str]:
 
@@ -48,33 +58,55 @@ def _parse_json_list(
             "Invalid list data."
         )
 
-
     if not isinstance(result, list):
         raise ValueError(
             "Expected a list."
         )
 
-
     return result
 
 
+def current_user_id(
+    request: Request,
+) -> int:
+
+    try:
+        return get_user_id_from_session(
+            request
+        )
+
+    except ValueError as error:
+
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=str(error),
+        )
+
+
 @router.post(
-    "/profile",
+    "",
     response_model=ProfileResponse,
     status_code=status.HTTP_201_CREATED,
 )
-def create_profile_route(
+def save_profile_route(
 
     request: Request,
 
     username: str = Form(...),
 
     gender: str = Form(""),
-    status_value: str = Form("", alias="status"),
+
+    profile_status: str = Form(
+        "",
+        alias="status",
+    ),
+
     residence: str = Form(""),
+
     birth_date: str = Form(""),
 
     home_town: str = Form(""),
+
     high_school: str = Form(""),
 
     mobile: str = Form(""),
@@ -82,6 +114,7 @@ def create_profile_route(
     websites: str = Form("[]"),
 
     looking_for: str = Form(""),
+
     interested_in: str = Form(""),
 
     relationship_status: str = Form(""),
@@ -96,94 +129,103 @@ def create_profile_route(
 
     bio: str = Form(""),
 
-    profile_pic: UploadFile | None = File(None),
+    profile_pic: UploadFile | None = File(
+        None
+    ),
 ):
+
+    user_id = current_user_id(
+        request
+    )
 
     try:
 
-        # Cookie
-        #   ↓
-        # sessions table
-        #   ↓
-        # user_id
-        user_id = get_user_id_from_session(
-            request
-        )
-
-
         profile = ProfileCreate(
+
             username=username,
 
-            gender=_empty_to_none(gender),
-
-            status=_empty_to_none(
-                status_value
+            gender=empty_to_none(
+                gender
             ),
 
-            residence=_empty_to_none(
+            status=empty_to_none(
+                profile_status
+            ),
+
+            residence=empty_to_none(
                 residence
             ),
 
-            birth_date=_empty_to_none(
+            birth_date=empty_to_none(
                 birth_date
             ),
 
-            home_town=_empty_to_none(
+            home_town=empty_to_none(
                 home_town
             ),
 
-            high_school=_empty_to_none(
+            high_school=empty_to_none(
                 high_school
             ),
 
-            mobile=_empty_to_none(
+            mobile=empty_to_none(
                 mobile
             ),
 
-            websites=_parse_json_list(
+            websites=parse_json_list(
                 websites
             ),
 
-            looking_for=_empty_to_none(
+            looking_for=empty_to_none(
                 looking_for
             ),
 
-            interested_in=_empty_to_none(
+            interested_in=empty_to_none(
                 interested_in
             ),
 
-            relationship_status=_empty_to_none(
-                relationship_status
+            relationship_status=(
+                empty_to_none(
+                    relationship_status
+                )
             ),
 
             relationship_with=None,
 
-            political_views=_empty_to_none(
+            political_views=empty_to_none(
                 political_views
             ),
 
-            interests=_parse_json_list(
+            interests=parse_json_list(
                 interests
             ),
 
-            favorite_music=_parse_json_list(
+            favorite_music=parse_json_list(
                 favorite_music
             ),
 
-            favorite_movies=_parse_json_list(
+            favorite_movies=parse_json_list(
                 favorite_movies
             ),
 
-            bio=_empty_to_none(
+            bio=empty_to_none(
                 bio
             ),
         )
 
 
-        return create_profile(
+        return save_profile(
             user_id=user_id,
             profile=profile,
             profile_pic=profile_pic,
+        )
+
+
+    except ValidationError as error:
+
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=error.errors(),
         )
 
 
@@ -191,5 +233,35 @@ def create_profile_route(
 
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(error),
+        )
+
+
+@router.get(
+    "/{user_id}",
+    response_model=ProfileViewResponse,
+)
+def get_profile_route(
+    user_id: int,
+    request: Request,
+):
+
+    viewer_user_id = current_user_id(
+        request
+    )
+
+
+    try:
+
+        return get_profile(
+            current_user_id=viewer_user_id,
+            target_user_id=user_id,
+        )
+
+
+    except LookupError as error:
+
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
             detail=str(error),
         )
