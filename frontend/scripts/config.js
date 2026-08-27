@@ -4,7 +4,7 @@ const IS_LOCAL =
 
 const API_URL = IS_LOCAL
     ? "http://127.0.0.1:8000"
-    : "https://YOUR-RENDER-BACKEND.onrender.com";
+    : "https://two004-facebook.onrender.com";
 
 window.API_URL = API_URL;
 
