@@ -55,16 +55,21 @@ def search_users_route(
         alias="status",
     ),
 
+    looking_for: str | None = Query(
+        default=None,
+    ),
+
+    relationship_status: str | None = Query(
+        default=None,
+    ),
+
     user_id: int = Depends(
         require_user_id
     ),
 ):
 
-    # user_id is mainly here to ensure
-    # the caller is authenticated.
-    #
-    # We don't need it for the actual
-    # search query yet.
+    # user_id authenticates the request
+    # and lets search return friendship state.
 
     query = q.strip()
 
@@ -77,8 +82,11 @@ def search_users_route(
 
     results = search_users(
         query=query,
+        current_user_id=user_id,
         university_id=school,
         profile_status=profile_status,
+        looking_for=looking_for,
+        relationship_status=relationship_status,
     )
 
 

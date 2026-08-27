@@ -313,6 +313,20 @@ header {
 }
 
 
+.wide_action:disabled {
+    color: #777777;
+
+    background: #f7f7f7;
+
+    cursor: default;
+}
+
+
+.wide_action:disabled:hover {
+    text-decoration: none;
+}
+
+
 .center_text {
     text-align: center;
 }

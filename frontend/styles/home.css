@@ -246,6 +246,24 @@ a:hover {
 }
 
 
+.split_header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.box_count {
+    color: #666666;
+
+    font-size: 10px;
+
+    font-weight: normal;
+}
+
+
 .box_content {
     padding: 9px;
 }
@@ -461,6 +479,146 @@ a:hover {
 }
 
 
+/* HOME PEOPLE */
+
+.home_people_list {
+    padding: 0;
+}
+
+
+.home_person {
+    display: grid;
+
+    grid-template-columns:
+        46px
+        1fr
+        62px;
+
+    gap: 7px;
+
+    padding: 8px;
+
+    border-bottom: 1px solid #dddddd;
+}
+
+
+.home_person:last-child {
+    border-bottom: none;
+}
+
+
+.home_person img {
+    width: 40px;
+
+    height: 48px;
+
+    object-fit: cover;
+
+    border: 1px solid #999999;
+
+    background: #eeeeee;
+}
+
+
+.home_person_info {
+    min-width: 0;
+
+    line-height: 1.35;
+}
+
+
+.home_person_info a {
+    display: block;
+
+    margin-bottom: 2px;
+
+    font-weight: bold;
+}
+
+
+.home_person_meta {
+    color: #555555;
+
+    font-size: 10px;
+}
+
+
+.home_suggestion_reason {
+    margin-top: 3px;
+
+    color: #3b5998;
+
+    font-size: 10px;
+
+    font-weight: bold;
+}
+
+
+.home_person_actions {
+    text-align: right;
+}
+
+
+.home_person_actions a {
+    display: block;
+
+    margin-bottom: 4px;
+}
+
+
+.home_person_actions button {
+    margin-bottom: 3px;
+
+    padding: 2px 5px;
+
+    border: 1px solid #777777;
+
+    background: #eeeeee;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+
+.home_person_actions button:hover {
+    background: #dddddd;
+}
+
+
+.home_person_actions button:disabled {
+    color: #777777;
+
+    background: #f5f5f5;
+
+    cursor: default;
+}
+
+
+.home_friend_label {
+    display: inline-block;
+
+    padding: 2px 5px;
+
+    background: #f3f5fa;
+
+    border: 1px solid #b7c3dc;
+
+    color: #3b5998;
+
+    font-size: 10px;
+}
+
+
+.pending_label {
+    color: #555555;
+
+    background: #f7f7f7;
+
+    border-color: #cccccc;
+}
+
+
 /* COURSES */
 
 .course_item {
@@ -641,6 +799,23 @@ footer nav a {
 
     .summary_item:last-child {
         border-bottom: none;
+    }
+
+
+    .home_person {
+        grid-template-columns:
+            46px
+            1fr;
+    }
+
+
+    .home_person_actions {
+        grid-column:
+            2
+            /
+            -1;
+
+        text-align: left;
     }
 
 }

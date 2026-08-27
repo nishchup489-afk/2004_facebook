@@ -1,18 +1,42 @@
 const API_URL = "http://127.0.0.1:8000";
 
+const DEFAULT_PROFILE_PICTURE =
+    "/frontend/assets/default-profile.png";
+
 
 // =========================
 // ELEMENTS
 // =========================
 
-const logoutLink = document.getElementById("logoutLink");
+const logoutLink =
+    document.getElementById("logoutLink");
 
-const profileLink = document.getElementById("profileLink");
-const sideProfileLink = document.getElementById("sideProfileLink");
-const directoryProfileLink = document.getElementById("directoryProfileLink");
+const profileLink =
+    document.getElementById("profileLink");
 
-const quickSearch = document.getElementById("quickSearch");
-const quickSearchButton = document.getElementById("quickSearchButton");
+const sideProfileLink =
+    document.getElementById("sideProfileLink");
+
+const directoryProfileLink =
+    document.getElementById("directoryProfileLink");
+
+const quickSearch =
+    document.getElementById("quickSearch");
+
+const quickSearchButton =
+    document.getElementById("quickSearchButton");
+
+const friendRequests =
+    document.getElementById("friendRequests");
+
+const homeSuggestions =
+    document.getElementById("homeSuggestions");
+
+const homeSuggestionCount =
+    document.getElementById("homeSuggestionCount");
+
+
+let currentUser = null;
 
 
 // =========================
@@ -20,26 +44,144 @@ const quickSearchButton = document.getElementById("quickSearchButton");
 // =========================
 
 function setText(id, value) {
-    const element = document.getElementById(id);
+
+    const element =
+        document.getElementById(id);
 
     if (!element) {
         return;
     }
 
-    element.textContent = value ?? "-";
+    element.textContent =
+        value ?? "-";
 }
 
-function setProfile(id , value){
-    const element = document.getElementById(id);
 
-    if(!element) return;
+function setProfile(id, value) {
 
-    element.src = value ?? "/frontend/assets/default-profile.png";
+    const element =
+        document.getElementById(id);
+
+    if (!element) {
+        return;
+    }
+
+    element.src =
+        value ||
+        DEFAULT_PROFILE_PICTURE;
 }
 
 
 function profileUrl(userId) {
-    return `/frontend/profile.html?user_id=${userId}`;
+
+    return (
+        `/frontend/profile.html` +
+        `?user_id=${userId}`
+    );
+}
+
+
+function fullName(user) {
+
+    return [
+        user.first_name,
+        user.last_name
+    ]
+        .filter(Boolean)
+        .join(" ");
+}
+
+
+function profilePicture(user) {
+
+    return (
+        user.profile_pic ||
+        DEFAULT_PROFILE_PICTURE
+    );
+}
+
+
+function displayValue(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return "-";
+    }
+
+    return value;
+}
+
+
+function createFriendshipLabel(
+    text,
+    extraClass = ""
+) {
+
+    const label =
+        document.createElement("span");
+
+    label.className =
+        `home_friend_label ${extraClass}`.trim();
+
+    label.textContent =
+        text;
+
+    return label;
+}
+
+
+async function getJson(path) {
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}${path}`,
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
+
+
+        if (response.status === 401) {
+
+            window.location.href =
+                "/frontend/index.html";
+
+            return null;
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            console.error(
+                `Could not load ${path}:`,
+                data
+            );
+
+            return null;
+        }
+
+
+        return data;
+
+
+    } catch (error) {
+
+        console.error(
+            `Could not connect to ${path}:`,
+            error
+        );
+
+        return null;
+    }
 }
 
 
@@ -48,18 +190,16 @@ function profileUrl(userId) {
 // =========================
 
 function populateHome(user) {
-    const fullName = [
-        user.first_name,
-        user.last_name
-    ]
-        .filter(Boolean)
-        .join(" ");
+
+    const name =
+        fullName(user);
 
 
-    // Welcome
     setText(
         "welcomeTitle",
-        fullName ? `Welcome, ${fullName}` : "Welcome"
+        name
+            ? `Welcome, ${name}`
+            : "Welcome"
     );
 
     setText(
@@ -67,15 +207,18 @@ function populateHome(user) {
         user.first_name
     );
 
-
-    // Sidebar
     setText(
         "homeUserName",
-        fullName
+        name
     );
 
     setText(
         "homeUniversity",
+        user.university_name
+    );
+
+    setText(
+        "networkSchool",
         user.university_name
     );
 
@@ -85,78 +228,579 @@ function populateHome(user) {
     );
 
 
-    // Profile picture
-    const profilePicture =
-        document.getElementById("homeProfilePicture");
-
-    if (profilePicture && user.profile_pic) {
-        profilePicture.src = user.profile_pic;
-    }
+    const url =
+        profileUrl(user.user_id);
 
 
-    // Profile links
-    const url = profileUrl(user.user_id);
+    [
+        profileLink,
+        sideProfileLink,
+        directoryProfileLink,
+        document.getElementById(
+            "homeUserName"
+        )
+    ].forEach(link => {
 
-    if (profileLink) {
-        profileLink.href = url;
-    }
-
-    if (sideProfileLink) {
-        sideProfileLink.href = url;
-    }
-
-    if (directoryProfileLink) {
-        directoryProfileLink.href = url;
-    }
+        if (link) {
+            link.href = url;
+        }
+    });
 }
 
 
 // =========================
-// LOAD CURRENT USER
+// SOCIAL DATA
 // =========================
 
 async function loadCurrentUser() {
-    try {
-        const response = await fetch(
-            `${API_URL}/me`,
+
+    const data =
+        await getJson("/me");
+
+    if (!data) {
+        return false;
+    }
+
+    currentUser = data;
+
+    populateHome(data);
+
+    return true;
+}
+
+
+async function loadHomeSocialData() {
+
+    const [
+        friendsData,
+        requestsData,
+        suggestionsData
+    ] = await Promise.all([
+        getJson("/friends"),
+        getJson("/friends/requests"),
+        getJson("/friends/suggestions"),
+    ]);
+
+
+    const friends =
+        friendsData?.friends || [];
+
+    const requests =
+        requestsData?.requests || [];
+
+    const suggestions =
+        suggestionsData?.suggestions || [];
+
+
+    setText(
+        "friendCount",
+        friends.length
+    );
+
+    setText(
+        "summaryFriends",
+        friends.length
+    );
+
+    setText(
+        "summaryRequests",
+        requests.length
+    );
+
+    setText(
+        "studentCount",
+        suggestions.length
+    );
+
+    if (homeSuggestionCount) {
+        homeSuggestionCount.textContent =
+            suggestions.length;
+    }
+
+
+    renderHomeRequests(
+        requests
+    );
+
+    renderHomeSuggestions(
+        suggestions
+    );
+}
+
+
+function createHomePerson(
+    user,
+    showReason = false
+) {
+
+    const row =
+        document.createElement("div");
+
+    row.className =
+        "home_person";
+
+
+    const image =
+        document.createElement("img");
+
+    image.src =
+        profilePicture(user);
+
+    image.alt =
+        `${fullName(user)} profile picture`;
+
+
+    const info =
+        document.createElement("div");
+
+    info.className =
+        "home_person_info";
+
+
+    const link =
+        document.createElement("a");
+
+    link.href =
+        profileUrl(user.user_id);
+
+    link.textContent =
+        fullName(user) || "Unknown User";
+
+
+    const meta =
+        document.createElement("div");
+
+    meta.className =
+        "home_person_meta";
+
+    meta.innerHTML = `
+        ${displayValue(user.university_name)}
+        <br>
+        ${displayValue(user.status)}
+    `;
+
+
+    info.appendChild(link);
+    info.appendChild(meta);
+
+
+    if (user.looking_for) {
+
+        const lookingFor =
+            document.createElement("div");
+
+        lookingFor.className =
+            "home_person_meta";
+
+        lookingFor.textContent =
+            `Looking for ${user.looking_for}`;
+
+        info.appendChild(
+            lookingFor
+        );
+    }
+
+
+    if (user.relationship_status) {
+
+        const relationship =
+            document.createElement("div");
+
+        relationship.className =
+            "home_person_meta";
+
+        relationship.textContent =
+            user.relationship_status;
+
+        info.appendChild(
+            relationship
+        );
+    }
+
+
+    if (
+        showReason &&
+        user.suggestion_reason
+    ) {
+
+        const reason =
+            document.createElement("div");
+
+        reason.className =
+            "home_suggestion_reason";
+
+        reason.textContent =
+            user.suggestion_reason;
+
+        info.appendChild(
+            reason
+        );
+    }
+
+
+    const actions =
+        document.createElement("div");
+
+    actions.className =
+        "home_person_actions";
+
+
+    const profile =
+        document.createElement("a");
+
+    profile.href =
+        profileUrl(user.user_id);
+
+    profile.textContent =
+        "view";
+
+    actions.appendChild(
+        profile
+    );
+
+
+    row.appendChild(image);
+    row.appendChild(info);
+    row.appendChild(actions);
+
+
+    return {
+        row,
+        actions,
+    };
+}
+
+
+function addFriendshipActions(
+    actions,
+    user
+) {
+
+    const friendshipStatus =
+        user.friendship_status || "none";
+
+
+    if (friendshipStatus === "accepted") {
+
+        actions.appendChild(
+            createFriendshipLabel("Friends")
+        );
+
+        return;
+    }
+
+
+    if (friendshipStatus === "pending_sent") {
+
+        actions.appendChild(
+            createFriendshipLabel(
+                "Requested",
+                "pending_label"
+            )
+        );
+
+        return;
+    }
+
+
+    if (friendshipStatus === "pending_received") {
+
+        actions.appendChild(
+            createFriendshipLabel(
+                "Pending",
+                "pending_label"
+            )
+        );
+
+
+        const acceptButton =
+            document.createElement("button");
+
+        acceptButton.textContent =
+            "accept";
+
+        acceptButton.addEventListener(
+            "click",
+            () => {
+                acceptFriend(
+                    user.user_id,
+                    acceptButton
+                );
+            }
+        );
+
+
+        const rejectButton =
+            document.createElement("button");
+
+        rejectButton.textContent =
+            "reject";
+
+        rejectButton.addEventListener(
+            "click",
+            () => {
+                rejectFriend(
+                    user.user_id,
+                    rejectButton
+                );
+            }
+        );
+
+
+        actions.appendChild(
+            acceptButton
+        );
+
+        actions.appendChild(
+            rejectButton
+        );
+
+        return;
+    }
+
+
+    const addButton =
+        document.createElement("button");
+
+    addButton.textContent =
+        "add";
+
+    addButton.addEventListener(
+        "click",
+        () => {
+            sendFriendRequest(
+                user.user_id,
+                addButton
+            );
+        }
+    );
+
+    actions.appendChild(
+        addButton
+    );
+}
+
+
+function renderHomeRequests(requests) {
+
+    if (!friendRequests) {
+        return;
+    }
+
+    friendRequests.innerHTML = "";
+
+
+    if (requests.length === 0) {
+
+        friendRequests.innerHTML = `
+            <p class="empty_message">
+                You have no new friend requests.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    requests.slice(0, 3).forEach(user => {
+
+        const person =
+            createHomePerson(user);
+
+        addFriendshipActions(
+            person.actions,
             {
-                method: "GET",
+                ...user,
+                friendship_status:
+                    "pending_received"
+            }
+        );
+
+        friendRequests.appendChild(
+            person.row
+        );
+    });
+}
+
+
+function renderHomeSuggestions(suggestions) {
+
+    if (!homeSuggestions) {
+        return;
+    }
+
+    homeSuggestions.innerHTML = "";
+
+
+    const visibleSuggestions =
+        suggestions
+            .filter(user => (
+                !currentUser ||
+                user.user_id !== currentUser.user_id
+            ))
+            .slice(0, 4);
+
+
+    if (visibleSuggestions.length === 0) {
+
+        homeSuggestions.innerHTML = `
+            <p class="empty_message">
+                No suggestions available.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    visibleSuggestions.forEach(user => {
+
+        const person =
+            createHomePerson(
+                user,
+                true
+            );
+
+        addFriendshipActions(
+            person.actions,
+            user
+        );
+
+        homeSuggestions.appendChild(
+            person.row
+        );
+    });
+}
+
+
+async function sendFriendRequest(
+    targetUserId,
+    button
+) {
+
+    button.disabled = true;
+    button.textContent = "...";
+
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/friends/${targetUserId}`,
+            {
+                method: "POST",
+                credentials: "include"
+            }
+        );
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            console.error(
+                "Could not send friend request:",
+                data
+            );
+
+            await loadHomeSocialData();
+
+            return;
+        }
+
+
+        await loadHomeSocialData();
+
+
+    } catch (error) {
+
+        console.error(
+            "Could not send friend request:",
+            error
+        );
+
+        button.disabled = false;
+        button.textContent = "add";
+    }
+}
+
+
+async function acceptFriend(
+    targetUserId,
+    button
+) {
+
+    button.disabled = true;
+
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/friends/${targetUserId}/accept`,
+            {
+                method: "POST",
                 credentials: "include"
             }
         );
 
 
-        // Session expired / not logged in
-        if (response.status === 401) {
-            window.location.href =
-                "/frontend/index.html";
-
+        if (!response.ok) {
+            button.disabled = false;
             return;
         }
 
 
-        const data = await response.json();
+        await loadHomeSocialData();
+
+
+    } catch (error) {
+
+        console.error(
+            "Could not accept friend:",
+            error
+        );
+
+        button.disabled = false;
+    }
+}
+
+
+async function rejectFriend(
+    targetUserId,
+    button
+) {
+
+    button.disabled = true;
+
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/friends/${targetUserId}/reject`,
+            {
+                method: "POST",
+                credentials: "include"
+            }
+        );
 
 
         if (!response.ok) {
-            console.error(
-                "Could not load current user:",
-                data
-            );
-
+            button.disabled = false;
             return;
         }
 
 
-        console.log("Current user:", data);
+        await loadHomeSocialData();
 
-        populateHome(data);
 
     } catch (error) {
+
         console.error(
-            "Could not connect to server:",
+            "Could not reject friend:",
             error
         );
+
+        button.disabled = false;
     }
 }
 
@@ -166,9 +810,12 @@ async function loadCurrentUser() {
 // =========================
 
 async function logOut(event) {
+
     event.preventDefault();
 
+
     try {
+
         const response = await fetch(
             `${API_URL}/logout`,
             {
@@ -187,7 +834,9 @@ async function logOut(event) {
         window.location.href =
             "/frontend/index.html";
 
+
     } catch (error) {
+
         console.error(
             "Could not logout:",
             error
@@ -201,18 +850,22 @@ async function logOut(event) {
 // =========================
 
 function search() {
+
     if (!quickSearch) {
         return;
     }
 
-    const query = quickSearch.value.trim();
+    const query =
+        quickSearch.value.trim();
 
     if (!query) {
         return;
     }
 
     window.location.href =
-        `/frontend/search.html?q=${encodeURIComponent(query)}`;
+        `/frontend/search.html?q=${
+            encodeURIComponent(query)
+        }`;
 }
 
 
@@ -221,6 +874,7 @@ function search() {
 // =========================
 
 if (logoutLink) {
+
     logoutLink.addEventListener(
         "click",
         logOut
@@ -229,6 +883,7 @@ if (logoutLink) {
 
 
 if (quickSearchButton) {
+
     quickSearchButton.addEventListener(
         "click",
         search
@@ -237,11 +892,15 @@ if (quickSearchButton) {
 
 
 if (quickSearch) {
+
     quickSearch.addEventListener(
         "keydown",
         event => {
+
             if (event.key === "Enter") {
+
                 event.preventDefault();
+
                 search();
             }
         }
@@ -253,4 +912,17 @@ if (quickSearch) {
 // START
 // =========================
 
-loadCurrentUser();
+async function startPage() {
+
+    const authenticated =
+        await loadCurrentUser();
+
+    if (!authenticated) {
+        return;
+    }
+
+    await loadHomeSocialData();
+}
+
+
+startPage();
