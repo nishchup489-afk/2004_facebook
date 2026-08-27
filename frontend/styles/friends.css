@@ -48,10 +48,6 @@ a:hover {
 .header {
     height: 76px;
 
-    background: #3b5998;
-
-    border-bottom: 1px solid #133783;
-
     display: flex;
 
     align-items: flex-end;
@@ -60,6 +56,10 @@ a:hover {
         0
         18px
         10px;
+
+    background: #3b5998;
+
+    border-bottom: 1px solid #133783;
 }
 
 
@@ -101,9 +101,9 @@ a:hover {
 
 
 .top_links {
-    font-weight: normal;
-
     color: #999999;
+
+    font-weight: normal;
 }
 
 
@@ -137,13 +137,13 @@ a:hover {
 /* QUICK SEARCH */
 
 .quick_search {
-    background: #f7f7f7;
-
-    border: 1px solid #cccccc;
-
     padding: 7px;
 
     margin-bottom: 10px;
+
+    background: #f7f7f7;
+
+    border: 1px solid #cccccc;
 }
 
 
@@ -152,9 +152,9 @@ a:hover {
 
     height: 22px;
 
-    border: 1px solid #777777;
-
     padding: 2px 4px;
+
+    border: 1px solid #777777;
 
     font-size: 11px;
 }
@@ -163,9 +163,9 @@ a:hover {
 .quick_search button {
     height: 22px;
 
-    padding: 0 7px;
-
     margin-left: 2px;
+
+    padding: 0 7px;
 
     border: 1px solid #777777;
 
@@ -185,17 +185,19 @@ a:hover {
 .quick_search_label {
     margin-top: 4px;
 
-    text-align: center;
-
     color: #777777;
+
+    text-align: center;
 
     font-size: 10px;
 }
 
 
-/* SIDE NAVIGATION */
+/* SIDE NAV */
 
 .side_nav {
+    margin-bottom: 10px;
+
     border-top: 1px solid #cccccc;
 }
 
@@ -218,10 +220,8 @@ a:hover {
 }
 
 
-/* MAIN */
-
-.main_content {
-    min-width: 0;
+.side_nav a.active {
+    background: #d8dfea;
 }
 
 
@@ -230,9 +230,9 @@ a:hover {
 .box {
     margin-bottom: 12px;
 
-    border: 1px solid #b7c3dc;
-
     background: #ffffff;
+
+    border: 1px solid #b7c3dc;
 }
 
 
@@ -256,125 +256,75 @@ a:hover {
 
 
 .box_content {
-    padding: 10px;
+    padding: 9px;
 }
 
 
-/* SEARCH FORM */
+/* FRIEND SUMMARY */
 
-.search_form {
+.summary_row {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 4px 0;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.summary_row:last-child {
+    border-bottom: none;
+}
+
+
+.summary_row strong {
+    color: #3b5998;
+}
+
+
+/* COUNTS */
+
+.section_count {
+    color: #666666;
+
+    font-size: 10px;
+
+    font-weight: normal;
+}
+
+
+/* SUGGESTION INTRO */
+
+.suggestion_intro {
+    padding: 8px 10px;
+
+    background: #f7f7f7;
+
+    border-bottom: 1px solid #dddddd;
+
+    color: #666666;
+
+    font-size: 11px;
+}
+
+
+/* PEOPLE LIST */
+
+.people_list {
     width: 100%;
 }
 
 
-.form_row {
+/* PERSON ROW */
+
+.person_row {
     display: grid;
 
     grid-template-columns:
-        90px
-        1fr;
-
-    gap: 8px;
-
-    align-items: center;
-
-    margin-bottom: 8px;
-}
-
-
-.form_row label {
-    text-align: right;
-
-    font-weight: bold;
-
-    color: #555555;
-}
-
-
-.form_row input,
-.form_row select {
-    width: 280px;
-
-    height: 24px;
-
-    border: 1px solid #777777;
-
-    background: #ffffff;
-
-    padding: 2px 5px;
-
-    font-size: 11px;
-}
-
-
-.form_actions {
-    padding-left: 98px;
-
-    margin-top: 10px;
-}
-
-
-.form_actions button {
-    padding: 3px 12px;
-
-    border: 1px solid #777777;
-
-    background: #eeeeee;
-
-    font-size: 11px;
-
-    cursor: pointer;
-}
-
-
-.form_actions button:hover {
-    background: #dddddd;
-}
-
-
-/* SEARCH INFO */
-
-#searchInfo {
-    color: #555555;
-}
-
-
-.result_count {
-    font-weight: normal;
-
-    font-size: 10px;
-
-    color: #666666;
-}
-
-
-/* RESULTS */
-
-.results {
-    padding: 0;
-}
-
-
-.empty_results {
-    padding: 15px;
-
-    color: #777777;
-
-    font-style: italic;
-
-    text-align: center;
-}
-
-
-/* PERSON RESULT */
-
-.person_result {
-    display: grid;
-
-    grid-template-columns:
-        90px
+        80px
         1fr
-        120px;
+        145px;
 
     gap: 10px;
 
@@ -384,10 +334,12 @@ a:hover {
 }
 
 
-.person_result:last-child {
+.person_row:last-child {
     border-bottom: none;
 }
 
+
+/* PROFILE IMAGE */
 
 .person_picture {
     text-align: center;
@@ -395,15 +347,15 @@ a:hover {
 
 
 .person_picture img {
-    width: 70px;
+    width: 65px;
 
-    height: 85px;
+    height: 78px;
 
     object-fit: cover;
 
-    border: 1px solid #777777;
-
     background: #eeeeee;
+
+    border: 1px solid #777777;
 }
 
 
@@ -424,20 +376,42 @@ a:hover {
 
 
 .person_details {
-    line-height: 1.5;
-
     color: #444444;
+
+    line-height: 1.5;
 }
 
 
 .person_details .label {
-    font-weight: bold;
-
     color: #666666;
+
+    font-weight: bold;
 }
 
 
-/* RESULT ACTIONS */
+/* MUTUAL FRIENDS */
+
+.mutual_friends {
+    margin-top: 5px;
+
+    color: #777777;
+
+    font-size: 10px;
+}
+
+
+.suggestion_reason {
+    margin-top: 5px;
+
+    color: #3b5998;
+
+    font-size: 10px;
+
+    font-weight: bold;
+}
+
+
+/* ACTIONS */
 
 .person_actions {
     text-align: right;
@@ -452,11 +426,21 @@ a:hover {
 
 
 .person_actions button {
+    display: inline-block;
+
+    margin:
+        0
+        0
+        4px
+        3px;
+
     padding: 3px 7px;
 
     border: 1px solid #777777;
 
     background: #eeeeee;
+
+    color: #000000;
 
     font-size: 10px;
 
@@ -472,11 +456,27 @@ a:hover {
 .person_actions button:disabled {
     color: #777777;
 
-    background: #f5f5f5;
-
     cursor: default;
+
+    background: #f5f5f5;
 }
 
+
+/* ACCEPT */
+
+.accept_button {
+    font-weight: bold;
+}
+
+
+/* REJECT */
+
+.reject_button {
+    color: #555555;
+}
+
+
+/* FRIEND LABEL */
 
 .friend_label {
     display: inline-block;
@@ -502,6 +502,19 @@ a:hover {
 }
 
 
+/* EMPTY */
+
+.empty_message {
+    padding: 16px;
+
+    color: #777777;
+
+    text-align: center;
+
+    font-style: italic;
+}
+
+
 /* FOOTER */
 
 footer {
@@ -511,9 +524,9 @@ footer {
 
     border-top: 1px solid #cccccc;
 
-    text-align: center;
-
     color: #777777;
+
+    text-align: center;
 
     font-size: 10px;
 }
@@ -549,30 +562,9 @@ footer nav a {
     }
 
 
-    .form_row {
-        grid-template-columns: 1fr;
-    }
-
-
-    .form_row label {
-        text-align: left;
-    }
-
-
-    .form_row input,
-    .form_row select {
-        width: 100%;
-    }
-
-
-    .form_actions {
-        padding-left: 0;
-    }
-
-
-    .person_result {
+    .person_row {
         grid-template-columns:
-            75px
+            70px
             1fr;
     }
 
@@ -583,9 +575,9 @@ footer nav a {
             /
             -1;
 
-        text-align: left;
+        padding-left: 80px;
 
-        padding-left: 85px;
+        text-align: left;
     }
 
 }

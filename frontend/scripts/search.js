@@ -20,6 +20,12 @@ const schoolFilter =
 const statusFilter =
     document.getElementById("statusFilter");
 
+const lookingForFilter =
+    document.getElementById("lookingForFilter");
+
+const relationshipFilter =
+    document.getElementById("relationshipFilter");
+
 const searchResults =
     document.getElementById("searchResults");
 
@@ -105,6 +111,24 @@ function displayValue(value) {
     }
 
     return value;
+}
+
+
+function createFriendshipLabel(
+    text,
+    extraClass = ""
+) {
+
+    const label =
+        document.createElement("span");
+
+    label.className =
+        `friend_label ${extraClass}`.trim();
+
+    label.textContent =
+        text;
+
+    return label;
 }
 
 
@@ -216,6 +240,12 @@ function loadSearchFromUrl() {
     const status =
         params.get("status") || "";
 
+    const lookingFor =
+        params.get("looking_for") || "";
+
+    const relationshipStatus =
+        params.get("relationship_status") || "";
+
 
     searchInput.value = query;
 
@@ -223,13 +253,19 @@ function loadSearchFromUrl() {
 
     statusFilter.value = status;
 
+    lookingForFilter.value = lookingFor;
+
+    relationshipFilter.value = relationshipStatus;
+
 
     if (query) {
 
         performSearch(
             query,
             school,
-            status
+            status,
+            lookingFor,
+            relationshipStatus
         );
     }
 }
@@ -244,7 +280,9 @@ function loadSearchFromUrl() {
 function updateSearchUrl(
     query,
     school,
-    status
+    status,
+    lookingFor,
+    relationshipStatus
 ) {
 
     const params =
@@ -278,6 +316,24 @@ function updateSearchUrl(
     }
 
 
+    if (lookingFor) {
+
+        params.set(
+            "looking_for",
+            lookingFor
+        );
+    }
+
+
+    if (relationshipStatus) {
+
+        params.set(
+            "relationship_status",
+            relationshipStatus
+        );
+    }
+
+
     const url =
         `/frontend/search.html?${params.toString()}`;
 
@@ -297,7 +353,9 @@ function updateSearchUrl(
 async function performSearch(
     query,
     school = "",
-    status = ""
+    status = "",
+    lookingFor = "",
+    relationshipStatus = ""
 ) {
 
     query = query.trim();
@@ -354,6 +412,24 @@ async function performSearch(
         params.set(
             "status",
             status
+        );
+    }
+
+
+    if (lookingFor) {
+
+        params.set(
+            "looking_for",
+            lookingFor
+        );
+    }
+
+
+    if (relationshipStatus) {
+
+        params.set(
+            "relationship_status",
+            relationshipStatus
         );
     }
 
@@ -593,6 +669,26 @@ function createPersonResult(user) {
                 user.status
             )}
         </div>
+
+        <div>
+            <span class="label">
+                Looking For:
+            </span>
+
+            ${displayValue(
+                user.looking_for
+            )}
+        </div>
+
+        <div>
+            <span class="label">
+                Relationship:
+            </span>
+
+            ${displayValue(
+                user.relationship_status
+            )}
+        </div>
     `;
 
 
@@ -626,42 +722,10 @@ function createPersonResult(user) {
     );
 
 
-    /*
-        Don't show Add Friend
-        on yourself.
-    */
-
-    if (
-        currentUser &&
-        currentUser.user_id
-            !== user.user_id
-    ) {
-
-        const friendButton =
-            document.createElement(
-                "button"
-            );
-
-        friendButton.textContent =
-            "Add as Friend";
-
-
-        friendButton.addEventListener(
-            "click",
-            () => {
-
-                addFriend(
-                    user.user_id,
-                    friendButton
-                );
-            }
-        );
-
-
-        actions.appendChild(
-            friendButton
-        );
-    }
+    addFriendshipAction(
+        actions,
+        user
+    );
 
 
     container.appendChild(
@@ -678,6 +742,112 @@ function createPersonResult(user) {
 
 
     return container;
+}
+
+
+function addFriendshipAction(
+    actions,
+    user
+) {
+
+    const friendshipStatus =
+        user.friendship_status || "none";
+
+
+    if (
+        friendshipStatus === "self" ||
+        (
+            currentUser &&
+            currentUser.user_id === user.user_id
+        )
+    ) {
+
+        actions.appendChild(
+            createFriendshipLabel(
+                "This is You"
+            )
+        );
+
+        return;
+    }
+
+
+    if (friendshipStatus === "accepted") {
+
+        actions.appendChild(
+            createFriendshipLabel(
+                "Friends"
+            )
+        );
+
+        return;
+    }
+
+
+    if (friendshipStatus === "pending_sent") {
+
+        actions.appendChild(
+            createFriendshipLabel(
+                "Requested",
+                "pending_label"
+            )
+        );
+
+        return;
+    }
+
+
+    if (friendshipStatus === "pending_received") {
+
+        actions.appendChild(
+            createFriendshipLabel(
+                "Pending",
+                "pending_label"
+            )
+        );
+
+
+        const respondLink =
+            document.createElement("a");
+
+        respondLink.href =
+            "/frontend/friends.html";
+
+        respondLink.textContent =
+            "Respond";
+
+        actions.appendChild(
+            respondLink
+        );
+
+        return;
+    }
+
+
+    const friendButton =
+        document.createElement(
+            "button"
+        );
+
+    friendButton.textContent =
+        "Add as Friend";
+
+
+    friendButton.addEventListener(
+        "click",
+        () => {
+
+            addFriend(
+                user.user_id,
+                friendButton
+            );
+        }
+    );
+
+
+    actions.appendChild(
+        friendButton
+    );
 }
 
 
@@ -720,14 +890,59 @@ async function addFriend(
                 data
             );
 
+            if (
+                data.detail ===
+                "Friend request already sent."
+            ) {
+                button.replaceWith(
+                    createFriendshipLabel(
+                        "Requested",
+                        "pending_label"
+                    )
+                );
+
+                return;
+            }
+
+            if (
+                data.detail ===
+                "This user already sent you a friend request."
+            ) {
+                button.replaceWith(
+                    createFriendshipLabel(
+                        "Pending",
+                        "pending_label"
+                    )
+                );
+
+                return;
+            }
+
+            if (
+                data.detail ===
+                "You are already friends."
+            ) {
+                button.replaceWith(
+                    createFriendshipLabel(
+                        "Friends"
+                    )
+                );
+
+                return;
+            }
+
             button.disabled = false;
 
             return;
         }
 
 
-        button.textContent =
-            "Request Sent";
+        button.replaceWith(
+            createFriendshipLabel(
+                "Requested",
+                "pending_label"
+            )
+        );
 
 
     } catch (error) {
@@ -761,6 +976,12 @@ function submitSearch(event) {
     const status =
         statusFilter.value;
 
+    const lookingFor =
+        lookingForFilter.value;
+
+    const relationshipStatus =
+        relationshipFilter.value;
+
 
     if (!query) {
         return;
@@ -770,14 +991,18 @@ function submitSearch(event) {
     updateSearchUrl(
         query,
         school,
-        status
+        status,
+        lookingFor,
+        relationshipStatus
     );
 
 
     performSearch(
         query,
         school,
-        status
+        status,
+        lookingFor,
+        relationshipStatus
     );
 }
 
@@ -803,6 +1028,8 @@ function runQuickSearch() {
 
     updateSearchUrl(
         query,
+        "",
+        "",
         "",
         ""
     );

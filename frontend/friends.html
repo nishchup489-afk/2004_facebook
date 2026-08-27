@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Friends | Thefacebook</title>
+
+    <link
+        rel="stylesheet"
+        href="/frontend/styles/friends.css"
+    >
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            [ thefacebook ]
+        </div>
+
+    </header>
+
+
+    <!-- TOP BAR -->
+
+    <div class="top_bar">
+
+        <span>
+            Friends
+        </span>
+
+        <span class="top_links">
+
+            <a
+                href="#"
+                id="homeLink"
+            >
+                home
+            </a>
+
+            |
+
+            <a
+                href="#"
+                id="profileLink"
+            >
+                my profile
+            </a>
+
+            |
+
+            <a
+                href="#"
+                id="logoutLink"
+            >
+                logout
+            </a>
+
+        </span>
+
+    </div>
+
+
+    <!-- MAIN LAYOUT -->
+
+    <div class="layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+
+            <!-- QUICK SEARCH -->
+
+            <section class="quick_search">
+
+                <input
+                    type="text"
+                    id="quickSearch"
+                >
+
+                <button id="quickSearchButton">
+                    go
+                </button>
+
+                <div class="quick_search_label">
+                    quick search
+                </div>
+
+            </section>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="side_nav">
+
+                <a
+                    href="#"
+                    id="sideProfileLink"
+                >
+                    My Profile
+                </a>
+
+                <a
+                    href="/frontend/friends.html"
+                    class="active"
+                >
+                    My Friends
+                </a>
+
+                <a href="/frontend/courses.html">
+                    My Courses
+                </a>
+
+                <a href="/frontend/search.html">
+                    Search
+                </a>
+
+                <a href="/frontend/complete_profile.html">
+                    Edit Profile
+                </a>
+
+            </nav>
+
+
+            <!-- FRIEND SUMMARY -->
+
+            <section class="box friend_summary_box">
+
+                <div class="box_header">
+                    Friend Summary
+                </div>
+
+                <div class="box_content">
+
+                    <div class="summary_row">
+
+                        <span>
+                            Friends:
+                        </span>
+
+                        <strong id="friendCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary_row">
+
+                        <span>
+                            Requests:
+                        </span>
+
+                        <strong id="requestCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary_row">
+
+                        <span>
+                            Suggestions:
+                        </span>
+
+                        <strong id="suggestionCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </aside>
+
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main_content">
+
+
+            <!-- FRIEND REQUESTS -->
+
+            <section class="box">
+
+                <div class="box_header">
+
+                    <span>
+                        Friend Requests
+                    </span>
+
+                    <span
+                        class="section_count"
+                        id="friendRequestCount"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="people_list"
+                    id="friendRequests"
+                >
+
+                    <div class="empty_message">
+                        You have no new friend requests.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- MY FRIENDS -->
+
+            <section class="box">
+
+                <div class="box_header">
+
+                    <span>
+                        My Friends
+                    </span>
+
+                    <span
+                        class="section_count"
+                        id="friendsSectionCount"
+                    >
+                        0 friends
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="people_list"
+                    id="friendsList"
+                >
+
+                    <div class="empty_message">
+                        You have not added any friends yet.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- SUGGESTED PEOPLE -->
+
+            <section class="box">
+
+                <div class="box_header">
+
+                    <span>
+                        People You May Know
+                    </span>
+
+                    <span
+                        class="section_count"
+                        id="suggestionsSectionCount"
+                    >
+                        0 suggestions
+                    </span>
+
+                </div>
+
+
+                <div class="suggestion_intro">
+
+                    People from your university, with
+                    looking-for matches and mutual friends
+                    shown when available.
+
+                </div>
+
+
+                <div
+                    class="people_list"
+                    id="friendSuggestions"
+                >
+
+                    <div class="empty_message">
+                        No suggestions available.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <nav>
+
+            <a href="/frontend/about.html">
+                about
+            </a>
+
+            <a href="/frontend/contact.html">
+                contact
+            </a>
+
+            <a href="/frontend/faq.html">
+                faq
+            </a>
+
+            <a href="/frontend/terms.html">
+                terms
+            </a>
+
+            <a href="/frontend/privacy.html">
+                privacy
+            </a>
+
+        </nav>
+
+
+        <div>
+
+            a Mark Zuckerberg production
+
+            <br>
+
+            <span>
+                Thefacebook &copy; 2004
+            </span>
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+
+<script src="/frontend/scripts/friends.js"></script>
+
+</body>
+
+</html>

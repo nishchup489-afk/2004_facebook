@@ -19,6 +19,9 @@
 
 
 from app.config.settings import pool
+from app.service.friends import (
+    friendship_status_for_view,
+)
 
 
 MAX_SEARCH_RESULTS = 50
@@ -26,8 +29,11 @@ MAX_SEARCH_RESULTS = 50
 
 def search_users(
     query: str,
+    current_user_id: int,
     university_id: int | None = None,
     profile_status: str | None = None,
+    looking_for: str | None = None,
+    relationship_status: str | None = None,
 ) -> list[dict]:
 
     query = query.strip()
@@ -51,7 +57,10 @@ def search_users(
         "u.is_active = TRUE"
     ]
 
-    params = []
+    params = [
+        current_user_id,
+        current_user_id,
+    ]
 
 
     # /*
@@ -171,6 +180,44 @@ def search_users(
 
 
     # /*
+    #     LOOKING FOR FILTER
+    # */
+
+    if looking_for:
+
+        conditions.append(
+            """
+            LOWER(p.looking_for)
+            =
+            LOWER(%s)
+            """
+        )
+
+        params.append(
+            looking_for
+        )
+
+
+    # /*
+    #     RELATIONSHIP STATUS FILTER
+    # */
+
+    if relationship_status:
+
+        conditions.append(
+            """
+            LOWER(p.relationship_status)
+            =
+            LOWER(%s)
+            """
+        )
+
+        params.append(
+            relationship_status
+        )
+
+
+    # /*
     #     Combine:
 
     #     condition
@@ -195,7 +242,12 @@ def search_users(
             uni.name,
 
             p.status,
-            p.username
+            p.username,
+            p.looking_for,
+            p.relationship_status,
+
+            f.requested_by,
+            f.status
 
         FROM users AS u
 
@@ -207,6 +259,13 @@ def search_users(
 
         LEFT JOIN profile AS p
             ON p.user_id = u.id
+
+        LEFT JOIN friendships AS f
+            ON f.user_id_low =
+                LEAST(%s, u.id)
+
+           AND f.user_id_high =
+                GREATEST(%s, u.id)
 
         WHERE
             {where_clause}
@@ -284,6 +343,20 @@ def search_users(
             "status": row[6],
 
             "username": row[7],
+
+            "looking_for": row[8],
+
+            "relationship_status": row[9],
+
+            "friendship_status": (
+                "self"
+                if row[0] == current_user_id
+                else friendship_status_for_view(
+                    current_user_id=current_user_id,
+                    requested_by=row[10],
+                    friendship_status=row[11],
+                )
+            ),
         }
 
         for row in rows
