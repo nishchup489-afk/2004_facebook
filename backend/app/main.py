@@ -35,5 +35,13 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+def root():
+    return {
+        "status": "ok",
+        "service": "2004 Facebook API"
+    }
+
 for router in routers:
     app.include_router(router)
+
