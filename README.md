@@ -22,7 +22,7 @@
 
 > **30-second version:** this is a working university social network inspired by Thefacebook's early product idea. Students receive a fake university identity, register with a one-time code, create a profile, search their school, add friends, discover mutual connections, and join courses. The frontend uses no framework. The backend uses FastAPI, PostgreSQL, raw SQL, and server-side sessions.
 
-![Thefacebook profile page](docs/screenshots/cloudinary-profile-page.png)
+![alt text](image.png)
 
 ## Why I built this
 
