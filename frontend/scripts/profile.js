@@ -43,7 +43,7 @@ const myProfile = document.getElementById("myProfile")
 */
 
 if (userId){
-    myProfile.href = `/frontend/profile.html?user_id=${userId}`
+    myProfile.href = `/profile.html?user_id=${userId}`
 }
 
 function displayValue(value) {
@@ -205,7 +205,7 @@ function setupProfileActions(profile) {
             false,
             () => {
                 window.location.href =
-                    "/frontend/friends.html";
+                    "/friends.html";
             }
         );
 
@@ -589,7 +589,7 @@ async function loadProfile() {
         if (response.status === 401) {
 
             window.location.href =
-                "/frontend/index.html";
+                "/index.html";
 
             return;
         }
@@ -655,7 +655,7 @@ async function logOut(event) {
 
 
         window.location.href =
-            "/frontend/index.html";
+            "/index.html";
 
 
     } catch (error) {
@@ -684,7 +684,7 @@ function search() {
 
 
     window.location.href =
-        `/frontend/search.html?q=${
+        `/search.html?q=${
             encodeURIComponent(query)
         }`;
 }

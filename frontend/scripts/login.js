@@ -7,14 +7,14 @@ const loginButtonAtBottom = document.querySelectorAll(".loginButton")
 
 registerButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        window.location.href = "/frontend/register.html";
+        window.location.href = "/register.html";
     });
 });
 
 
 loginButtonAtBottom.forEach((button) => {
     button.addEventListener("click" , () => {
-        window.location.href = "/frontend/index.html#loginForm";
+        window.location.href = "/#loginForm";
     })
 })
 
@@ -53,7 +53,7 @@ async function logIn(e) {
 
         console.log("Logged in:", data);
 
-        window.location.href = "/frontend/home.html";
+        window.location.href = "/home.html";
 
     } catch (error) {
         console.error(error);

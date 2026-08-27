@@ -1,5 +1,5 @@
 const DEFAULT_PROFILE_PICTURE =
-    "/frontend/assets/default-profile.png";
+    "/assets/default-profile.png";
 
 
 // =========================
@@ -76,7 +76,7 @@ function setProfile(id, value) {
 function profileUrl(userId) {
 
     return (
-        `/frontend/profile.html` +
+        `/profile.html` +
         `?user_id=${userId}`
     );
 }
@@ -150,7 +150,7 @@ async function getJson(path) {
         if (response.status === 401) {
 
             window.location.href =
-                "/frontend/index.html";
+                "/index.html";
 
             return null;
         }
@@ -918,7 +918,7 @@ async function logOut(event) {
 
 
         window.location.href =
-            "/frontend/index.html";
+            "/index.html";
 
 
     } catch (error) {
@@ -949,7 +949,7 @@ function search() {
     }
 
     window.location.href =
-        `/frontend/search.html?q=${
+        `/search.html?q=${
             encodeURIComponent(query)
         }`;
 }

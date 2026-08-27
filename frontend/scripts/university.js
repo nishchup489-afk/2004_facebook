@@ -97,7 +97,7 @@ async function admitToUniversity(e) {
         );
 
         window.location.href =
-            `/frontend/university_portfolio.html?student_id=${data.student_id}`;
+            `/university_portfolio.html?student_id=${data.student_id}`;
 
 
     }

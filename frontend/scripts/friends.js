@@ -1,5 +1,5 @@
 const DEFAULT_PROFILE_PICTURE =
-    "/frontend/assets/default-profile.png";
+    "/assets/default-profile.png";
 
 
 /*
@@ -92,7 +92,7 @@ let currentUser = null;
 function profileUrl(userId) {
 
     return (
-        `/frontend/profile.html` +
+        `/profile.html` +
         `?user_id=${userId}`
     );
 }
@@ -101,7 +101,7 @@ function profileUrl(userId) {
 function homeUrl(userId) {
 
     return (
-        `/frontend/home.html` +
+        `/home.html` +
         `?user_id=${userId}`
     );
 }
@@ -194,7 +194,7 @@ async function loadCurrentUser() {
         if (response.status === 401) {
 
             window.location.href =
-                "/frontend/index.html";
+                "/index.html";
 
             return false;
         }
@@ -636,7 +636,7 @@ async function loadFriends() {
         if (response.status === 401) {
 
             window.location.href =
-                "/frontend/index.html";
+                "/index.html";
 
             return;
         }
@@ -802,7 +802,7 @@ async function loadFriendRequests() {
         if (response.status === 401) {
 
             window.location.href =
-                "/frontend/index.html";
+                "/index.html";
 
             return;
         }
@@ -1139,7 +1139,7 @@ async function loadSuggestions() {
         if (response.status === 401) {
 
             window.location.href =
-                "/frontend/index.html";
+                "/index.html";
 
             return;
         }
@@ -1385,7 +1385,7 @@ function runQuickSearch() {
 
 
     window.location.href =
-        `/frontend/search.html?q=${
+        `/search.html?q=${
             encodeURIComponent(query)
         }`;
 }
@@ -1422,7 +1422,7 @@ async function logOut(event) {
 
 
         window.location.href =
-            "/frontend/index.html";
+            "/index.html";
 
 
     } catch (error) {

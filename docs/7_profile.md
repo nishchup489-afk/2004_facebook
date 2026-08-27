@@ -415,7 +415,7 @@ because the database still knows it is structured data.
 After profile creation succeeds, the frontend redirects to:
 
 ```text
-/frontend/profile.html
+/profile.html
 ```
 
 The profile page is where the saved fields should show up.
