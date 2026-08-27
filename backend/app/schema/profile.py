@@ -201,6 +201,8 @@ class ProfileViewResponse(BaseModel):
 
     is_self: bool
 
+    friendship_status: str = "none"
+
     first_name: str
 
     last_name: str

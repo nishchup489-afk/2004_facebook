@@ -4,6 +4,9 @@ from psycopg.types.json import Jsonb
 
 from app.config import media
 from app.config.settings import pool
+from app.service.friends import (
+    friendship_status_for_view,
+)
 from app.schema import (
     ProfileCreate,
     ProfileResponse,
@@ -498,7 +501,10 @@ def get_profile(
                     p.favorite_music,
                     p.favorite_movies,
                     p.bio,
-                    p.updated_at
+                    p.updated_at,
+
+                    f.requested_by,
+                    f.status
 
                 FROM users u
 
@@ -511,10 +517,21 @@ def get_profile(
                 JOIN profile p
                     ON p.user_id = u.id
 
+                LEFT JOIN friendships AS f
+                    ON f.user_id_low =
+                        LEAST(%s, u.id)
+
+                   AND f.user_id_high =
+                        GREATEST(%s, u.id)
+
                 WHERE u.id = %s
                   AND u.is_active = TRUE;
                 """,
-                (target_user_id,),
+                (
+                    current_user_id,
+                    current_user_id,
+                    target_user_id,
+                ),
             )
 
             result = cursor.fetchone()
@@ -532,6 +549,16 @@ def get_profile(
         is_self=(
             current_user_id
             == target_user_id
+        ),
+
+        friendship_status=(
+            "self"
+            if current_user_id == target_user_id
+            else friendship_status_for_view(
+                current_user_id=current_user_id,
+                requested_by=result[25],
+                friendship_status=result[26],
+            )
         ),
 
         first_name=result[1],

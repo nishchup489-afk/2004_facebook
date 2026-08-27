@@ -1,6 +1,3 @@
-const API_URL = "http://127.0.0.1:8000";
-
-
 /*
     GET USER ID FROM URL
 
@@ -111,6 +108,27 @@ function setText(id, value) {
     PROFILE OWNER / FRIEND UI
 */
 
+function setFriendButton(
+    text,
+    disabled,
+    onClick = null
+) {
+
+    if (!friendButton) {
+        return;
+    }
+
+    friendButton.textContent =
+        text;
+
+    friendButton.disabled =
+        disabled;
+
+    friendButton.onclick =
+        onClick;
+}
+
+
 function setupProfileActions(profile) {
 
     /*
@@ -144,14 +162,190 @@ function setupProfileActions(profile) {
             "block";
     }
 
-    if (friendButton) {
-        friendButton.textContent =
-            "Add as Friend";
+    const friendshipStatus =
+        profile.friendship_status || "none";
+
+
+    if (friendshipStatus === "accepted") {
+
+        setFriendButton(
+            "Friends",
+            true
+        );
+
+        if (connectionStatus) {
+            connectionStatus.textContent =
+                "You are friends.";
+        }
+
+        return;
     }
+
+
+    if (friendshipStatus === "pending_sent") {
+
+        setFriendButton(
+            "Requested",
+            true
+        );
+
+        if (connectionStatus) {
+            connectionStatus.textContent =
+                "Friend request pending.";
+        }
+
+        return;
+    }
+
+
+    if (friendshipStatus === "pending_received") {
+
+        setFriendButton(
+            "Respond to Request",
+            false,
+            () => {
+                window.location.href =
+                    "/frontend/friends.html";
+            }
+        );
+
+        if (connectionStatus) {
+            connectionStatus.textContent =
+                "This user sent you a friend request.";
+        }
+
+        return;
+    }
+
+
+    setFriendButton(
+        "Add as Friend",
+        false,
+        () => {
+            sendProfileFriendRequest(
+                profile.user_id
+            );
+        }
+    );
 
     if (connectionStatus) {
         connectionStatus.textContent =
             "You are not connected.";
+    }
+}
+
+
+async function sendProfileFriendRequest(
+    targetUserId
+) {
+
+    setFriendButton(
+        "Sending...",
+        true
+    );
+
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/friends/${targetUserId}`,
+            {
+                method: "POST",
+                credentials: "include"
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            console.error(
+                "Could not send friend request:",
+                data
+            );
+
+            if (
+                data.detail ===
+                "Friend request already sent."
+            ) {
+                setupProfileActions({
+                    is_self: false,
+                    user_id: targetUserId,
+                    friendship_status: "pending_sent"
+                });
+
+                return;
+            }
+
+            if (
+                data.detail ===
+                "This user already sent you a friend request."
+            ) {
+                setupProfileActions({
+                    is_self: false,
+                    user_id: targetUserId,
+                    friendship_status: "pending_received"
+                });
+
+                return;
+            }
+
+            if (
+                data.detail ===
+                "You are already friends."
+            ) {
+                setupProfileActions({
+                    is_self: false,
+                    user_id: targetUserId,
+                    friendship_status: "accepted"
+                });
+
+                return;
+            }
+
+            setFriendButton(
+                "Add as Friend",
+                false,
+                () => {
+                    sendProfileFriendRequest(
+                        targetUserId
+                    );
+                }
+            );
+
+            return;
+        }
+
+
+        setupProfileActions({
+            is_self: false,
+            user_id: targetUserId,
+            friendship_status: (
+                data.status ||
+                "pending_sent"
+            )
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Could not send friend request:",
+            error
+        );
+
+        setFriendButton(
+            "Add as Friend",
+            false,
+            () => {
+                sendProfileFriendRequest(
+                    targetUserId
+                );
+            }
+        );
     }
 }
 
@@ -357,6 +551,8 @@ function populateProfile(profile) {
 */
 
 async function loadProfile() {
+
+    await ensureFrontendConfig();
 
     /*
         A profile page needs:

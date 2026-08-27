@@ -31,6 +31,8 @@ function commaSeparatedToArray(value) {
 async function saveProfile(e) {
     e.preventDefault();
 
+    await ensureFrontendConfig();
+
     alertBox.textContent = "";
     alertBox.className = "alert";
 
@@ -159,7 +161,7 @@ async function saveProfile(e) {
 
     try {
         const response = await fetch(
-            "http://127.0.0.1:8000/profile",
+            `${API_URL}/profile`,
             {
                 method: "POST",
 

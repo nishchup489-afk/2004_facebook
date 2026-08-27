@@ -23,6 +23,8 @@ function showSuccess(message) {
 async function Register(e) {
     e.preventDefault();
 
+    await ensureFrontendConfig();
+
     alertBox.textContent = "";
     alertBox.className = "alert";
 
@@ -41,7 +43,7 @@ async function Register(e) {
 
     try {
         const response = await fetch(
-            "http://127.0.0.1:8000/register",
+            `${API_URL}/register`,
             {
                 method: "POST",
 

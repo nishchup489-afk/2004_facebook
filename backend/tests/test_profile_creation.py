@@ -62,7 +62,9 @@ def clear_profile_imports():
     for module_name in [
         "app.main",
         "app.router",
+        "app.router.friends",
         "app.router.profile",
+        "app.service.friends",
         "app.service.profile",
         "app.service.get_user_id",
     ]:
@@ -154,6 +156,8 @@ class FakePool:
 
 def profile_view_row(
     user_id=7,
+    requested_by=None,
+    friendship_status=None,
 ):
     return (
         user_id,
@@ -181,6 +185,8 @@ def profile_view_row(
         ["The Matrix"],
         "I built a small campus directory.",
         datetime(2004, 2, 5, 10, 45),
+        requested_by,
+        friendship_status,
     )
 
 
@@ -253,7 +259,8 @@ def test_get_profile_returns_profile_view_response(monkeypatch):
     assert profile.favorite_music == ["Daft Punk"]
     assert profile.favorite_movies == ["The Matrix"]
     assert profile.bio == "I built a small campus directory."
-    assert fake_pool.cursor_instance.params == (7,)
+    assert profile.friendship_status == "self"
+    assert fake_pool.cursor_instance.params == (7, 7, 7)
 
 
 def test_get_profile_marks_other_user_as_not_self(monkeypatch):
@@ -277,6 +284,63 @@ def test_get_profile_marks_other_user_as_not_self(monkeypatch):
 
     assert profile.user_id == 8
     assert profile.is_self is False
+    assert profile.friendship_status == "none"
+
+
+def test_get_profile_marks_sent_friend_request_pending(monkeypatch):
+    install_fake_config_modules(monkeypatch)
+    clear_profile_imports()
+
+    profile_service = importlib.import_module(
+        "app.service.profile"
+    )
+
+    monkeypatch.setattr(
+        profile_service,
+        "pool",
+        FakePool(
+            profile_view_row(
+                user_id=8,
+                requested_by=7,
+                friendship_status="pending",
+            )
+        ),
+    )
+
+    profile = profile_service.get_profile(
+        current_user_id=7,
+        target_user_id=8,
+    )
+
+    assert profile.friendship_status == "pending_sent"
+
+
+def test_get_profile_marks_received_friend_request_pending(monkeypatch):
+    install_fake_config_modules(monkeypatch)
+    clear_profile_imports()
+
+    profile_service = importlib.import_module(
+        "app.service.profile"
+    )
+
+    monkeypatch.setattr(
+        profile_service,
+        "pool",
+        FakePool(
+            profile_view_row(
+                user_id=8,
+                requested_by=8,
+                friendship_status="pending",
+            )
+        ),
+    )
+
+    profile = profile_service.get_profile(
+        current_user_id=7,
+        target_user_id=8,
+    )
+
+    assert profile.friendship_status == "pending_received"
 
 
 def test_get_profile_missing_row_fails(monkeypatch):

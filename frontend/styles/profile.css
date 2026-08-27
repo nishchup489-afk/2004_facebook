@@ -313,6 +313,20 @@ header {
 }
 
 
+.wide_action:disabled {
+    color: #777777;
+
+    background: #f7f7f7;
+
+    cursor: default;
+}
+
+
+.wide_action:disabled:hover {
+    text-decoration: none;
+}
+
+
 .center_text {
     text-align: center;
 }
@@ -488,4 +502,37 @@ footer span {
         grid-template-columns: 130px 1fr;
     }
 
+}
+
+
+@media (max-width: 520px) {
+
+    .top_bar {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        height: auto;
+
+        gap: 5px;
+
+        padding: 8px 12px;
+    }
+
+
+    .info_row {
+        grid-template-columns: 1fr;
+    }
+
+
+    .info_row .label {
+        padding-right: 0;
+    }
+
+
+    footer nav a {
+        display: inline-block;
+
+        margin: 3px 5px;
+    }
 }

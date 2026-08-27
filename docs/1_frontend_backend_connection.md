@@ -156,13 +156,27 @@ const response = await fetch(
 );
 ```
 
-Instead of hardcoding the backend URL everywhere, later we can keep it in one place.
+Instead of hardcoding the backend URL everywhere, the frontend reads it from:
 
-```javascript
-const API_URL = "http://127.0.0.1:8000";
+```text
+frontend/.env
 ```
 
-Then:
+Development value:
+
+```text
+FRONTEND_API_URL=http://127.0.0.1:8000
+```
+
+The page loads:
+
+```text
+frontend/scripts/config.js
+```
+
+before the page script.
+
+Then the request uses the shared variable:
 
 ```javascript
 const response = await fetch(
@@ -179,19 +193,13 @@ const response = await fetch(
 );
 ```
 
-During development:
+During production, only the frontend `.env` value has to change:
 
 ```text
-API_URL = http://127.0.0.1:8000
+FRONTEND_API_URL=https://api.thefacebook.com
 ```
 
-During production:
-
-```text
-API_URL = https://api.thefacebook.com
-```
-
-So we only change the backend server URL in one place instead of changing every `fetch()` call.
+So every frontend fetch keeps using `API_URL`, and the backend server URL lives in one frontend file.
 
 
 
