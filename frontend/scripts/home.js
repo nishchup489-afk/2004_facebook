@@ -1,5 +1,3 @@
-const API_URL = "http://127.0.0.1:8000";
-
 const DEFAULT_PROFILE_PICTURE =
     "/frontend/assets/default-profile.png";
 
@@ -34,6 +32,9 @@ const homeSuggestions =
 
 const homeSuggestionCount =
     document.getElementById("homeSuggestionCount");
+
+const myCourses =
+    document.getElementById("myCourses");
 
 
 let currentUser = null;
@@ -274,11 +275,13 @@ async function loadHomeSocialData() {
     const [
         friendsData,
         requestsData,
-        suggestionsData
+        suggestionsData,
+        coursesData
     ] = await Promise.all([
         getJson("/friends"),
         getJson("/friends/requests"),
         getJson("/friends/suggestions"),
+        getJson("/courses/mine"),
     ]);
 
 
@@ -290,6 +293,9 @@ async function loadHomeSocialData() {
 
     const suggestions =
         suggestionsData?.suggestions || [];
+
+    const courses =
+        coursesData?.courses || [];
 
 
     setText(
@@ -305,6 +311,11 @@ async function loadHomeSocialData() {
     setText(
         "summaryRequests",
         requests.length
+    );
+
+    setText(
+        "summaryCourses",
+        courses.length
     );
 
     setText(
@@ -324,6 +335,10 @@ async function loadHomeSocialData() {
 
     renderHomeSuggestions(
         suggestions
+    );
+
+    renderHomeCourses(
+        courses
     );
 }
 
@@ -673,6 +688,77 @@ function renderHomeSuggestions(suggestions) {
 }
 
 
+function renderHomeCourses(
+    courses
+) {
+
+    if (!myCourses) {
+        return;
+    }
+
+    myCourses.innerHTML = "";
+
+
+    if (courses.length === 0) {
+
+        myCourses.innerHTML = `
+            <p class="empty_message">
+                You have not added any courses.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    courses.slice(0, 4).forEach(course => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "course_item";
+
+
+        const code =
+            document.createElement("div");
+
+        code.className =
+            "course_code";
+
+        code.textContent =
+            course.course_code;
+
+
+        const name =
+            document.createElement("div");
+
+        name.className =
+            "course_name";
+
+        name.textContent =
+            course.course_name;
+
+
+        const meta =
+            document.createElement("div");
+
+        meta.className =
+            "course_meta";
+
+        meta.textContent =
+            `${course.semester} ${course.academic_year}`;
+
+
+        item.appendChild(code);
+        item.appendChild(name);
+        item.appendChild(meta);
+
+        myCourses.appendChild(item);
+    });
+}
+
+
 async function sendFriendRequest(
     targetUserId,
     button
@@ -913,6 +999,8 @@ if (quickSearch) {
 // =========================
 
 async function startPage() {
+
+    await ensureFrontendConfig();
 
     const authenticated =
         await loadCurrentUser();

@@ -20,6 +20,8 @@ function showSuccess(message) {
 async function admitToUniversity(e) {
     e.preventDefault();
 
+    await ensureFrontendConfig();
+
     alertBox.textContent = "";
     alertBox.className = "alert";
 
@@ -51,7 +53,7 @@ async function admitToUniversity(e) {
 
     try {
         const response = await fetch(
-            "http://127.0.0.1:8000/university",
+            `${API_URL}/university`,
             {
                 method: "POST",
 

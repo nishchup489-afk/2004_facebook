@@ -544,6 +544,19 @@ footer nav a {
 
 @media (max-width: 700px) {
 
+    .top_bar {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        height: auto;
+
+        gap: 5px;
+
+        padding: 8px 12px;
+    }
+
+
     .layout {
         grid-template-columns: 1fr;
     }
@@ -588,4 +601,17 @@ footer nav a {
         padding-left: 85px;
     }
 
+}
+
+
+@media (max-width: 480px) {
+
+    .person_result {
+        grid-template-columns: 1fr;
+    }
+
+
+    .person_actions {
+        padding-left: 0;
+    }
 }

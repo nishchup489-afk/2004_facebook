@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Courses | Thefacebook</title>
+
+    <link
+        rel="stylesheet"
+        href="/frontend/styles/courses.css"
+    >
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <header class="header">
+
+        <div class="logo">
+            [ thefacebook ]
+        </div>
+
+    </header>
+
+
+    <div class="top_bar">
+
+        <span>
+            Courses
+        </span>
+
+        <span class="top_links">
+
+            <a
+                href="/frontend/home.html"
+                id="homeLink"
+            >
+                home
+            </a>
+
+            |
+
+            <a
+                href="#"
+                id="profileLink"
+            >
+                my profile
+            </a>
+
+            |
+
+            <a
+                href="#"
+                id="logoutLink"
+            >
+                logout
+            </a>
+
+        </span>
+
+    </div>
+
+
+    <div class="layout">
+
+        <aside class="sidebar">
+
+            <section class="quick_search">
+
+                <input
+                    type="text"
+                    id="quickSearch"
+                >
+
+                <button id="quickSearchButton">
+                    go
+                </button>
+
+                <div class="quick_search_label">
+                    quick search
+                </div>
+
+            </section>
+
+
+            <nav class="side_nav">
+
+                <a
+                    href="#"
+                    id="sideProfileLink"
+                >
+                    My Profile
+                </a>
+
+                <a href="/frontend/friends.html">
+                    My Friends
+                </a>
+
+                <a
+                    href="/frontend/courses.html"
+                    class="active"
+                >
+                    My Courses
+                </a>
+
+                <a href="/frontend/search.html">
+                    Search
+                </a>
+
+                <a href="/frontend/complete_profile.html">
+                    Edit Profile
+                </a>
+
+            </nav>
+
+
+            <section class="box summary_box">
+
+                <div class="box_header">
+                    Course Summary
+                </div>
+
+                <div class="box_content">
+
+                    <div class="summary_row">
+                        <span>
+                            My Courses:
+                        </span>
+
+                        <strong id="myCourseCount">
+                            0
+                        </strong>
+                    </div>
+
+                    <div class="summary_row">
+                        <span>
+                            Results:
+                        </span>
+
+                        <strong id="resultCourseCount">
+                            0
+                        </strong>
+                    </div>
+
+                    <div class="summary_row">
+                        <span>
+                            School:
+                        </span>
+
+                        <strong id="courseSchool">
+                            -
+                        </strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </aside>
+
+
+        <main class="main_content">
+
+            <section class="box">
+
+                <div class="box_header">
+                    My Courses
+                </div>
+
+                <div
+                    class="course_list compact"
+                    id="myCourses"
+                >
+                    <div class="empty_message">
+                        You have not added any courses.
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section class="box">
+
+                <div class="box_header">
+                    Find Courses
+                </div>
+
+                <div class="box_content">
+
+                    <form
+                        class="course_form"
+                        id="courseSearchForm"
+                    >
+
+                        <div class="form_row">
+
+                            <label for="courseSearch">
+                                Course:
+                            </label>
+
+                            <input
+                                type="text"
+                                id="courseSearch"
+                                autocomplete="off"
+                                placeholder="CS50 or computer science"
+                            >
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="semesterFilter">
+                                Semester:
+                            </label>
+
+                            <select id="semesterFilter">
+                                <option value="">
+                                    Any
+                                </option>
+
+                                <option value="fall">
+                                    fall
+                                </option>
+
+                                <option value="spring">
+                                    spring
+                                </option>
+
+                                <option value="summer">
+                                    summer
+                                </option>
+
+                                <option value="winter">
+                                    winter
+                                </option>
+                            </select>
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="yearFilter">
+                                Year:
+                            </label>
+
+                            <input
+                                type="number"
+                                id="yearFilter"
+                                min="1900"
+                                max="2200"
+                                value="2004"
+                            >
+
+                        </div>
+
+
+                        <div class="form_actions">
+                            <button type="submit">
+                                Search
+                            </button>
+
+                            <button
+                                type="button"
+                                id="clearCourseSearch"
+                            >
+                                Clear
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+            <section class="box">
+
+                <div class="box_header split_header">
+                    <span>
+                        Courses at Your School
+                    </span>
+
+                    <span
+                        class="section_count"
+                        id="catalogCount"
+                    >
+                        0 courses
+                    </span>
+                </div>
+
+                <div
+                    class="course_list"
+                    id="courseResults"
+                >
+                    <div class="empty_message">
+                        No courses found.
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section
+                class="box"
+                id="classmatesBox"
+            >
+
+                <div class="box_header split_header">
+                    <span id="classmatesTitle">
+                        Classmates
+                    </span>
+
+                    <span
+                        class="section_count"
+                        id="classmatesCount"
+                    >
+                        0 people
+                    </span>
+                </div>
+
+                <div
+                    class="people_list"
+                    id="classmatesList"
+                >
+                    <div class="empty_message">
+                        Select a course to see who is in it.
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <footer>
+
+        <nav>
+
+            <a href="/frontend/about.html">
+                about
+            </a>
+
+            <a href="/frontend/contact.html">
+                contact
+            </a>
+
+            <a href="/frontend/faq.html">
+                faq
+            </a>
+
+            <a href="/frontend/terms.html">
+                terms
+            </a>
+
+            <a href="/frontend/privacy.html">
+                privacy
+            </a>
+
+        </nav>
+
+        <div>
+            a Mark Zuckerberg production
+            <br>
+            <span>
+                Thefacebook &copy; 2004
+            </span>
+        </div>
+
+    </footer>
+
+</div>
+
+
+<script src="/frontend/scripts/config.js"></script>
+<script src="/frontend/scripts/courses.js"></script>
+
+</body>
+
+</html>

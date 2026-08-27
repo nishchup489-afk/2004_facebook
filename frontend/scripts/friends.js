@@ -1,5 +1,3 @@
-const API_URL = "http://127.0.0.1:8000";
-
 const DEFAULT_PROFILE_PICTURE =
     "/frontend/assets/default-profile.png";
 
@@ -1495,6 +1493,8 @@ if (quickSearch) {
 */
 
 async function startPage() {
+
+    await ensureFrontendConfig();
 
     const authenticated =
         await loadCurrentUser();

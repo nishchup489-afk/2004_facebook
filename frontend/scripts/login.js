@@ -21,6 +21,8 @@ loginButtonAtBottom.forEach((button) => {
 async function logIn(e) {
     e.preventDefault();
 
+    await ensureFrontendConfig();
+
     const credentials = {
         university_email: email.value.trim(),
         password: password.value
@@ -28,7 +30,7 @@ async function logIn(e) {
 
     try {
         const response = await fetch(
-            "http://127.0.0.1:8000/login",
+            `${API_URL}/login`,
             {
                 method: "POST",
 

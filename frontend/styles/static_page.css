@@ -24,6 +24,8 @@ a {
 
     font-weight: bold;
 
+    overflow-wrap: anywhere;
+
     text-decoration: none;
 }
 
@@ -268,5 +270,52 @@ footer span {
 
     .info_table th {
         padding-right: 0;
+    }
+
+
+    footer nav a {
+        display: inline-block;
+
+        margin: 3px 5px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 0;
+    }
+
+
+    .main {
+        width: calc(100% - 16px);
+
+        min-height: auto;
+
+        margin: 8px auto;
+    }
+
+
+    .page_label,
+    .box_label {
+        font-size: 17px;
+    }
+
+
+    .content_title {
+        font-size: 22px;
+    }
+
+
+    .box_body,
+    .info_table th,
+    .info_table td {
+        font-size: 14px;
+    }
+
+
+    .box_body {
+        padding: 18px 15px;
     }
 }

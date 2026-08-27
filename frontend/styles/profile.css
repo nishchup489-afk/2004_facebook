@@ -503,3 +503,36 @@ footer span {
     }
 
 }
+
+
+@media (max-width: 520px) {
+
+    .top_bar {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        height: auto;
+
+        gap: 5px;
+
+        padding: 8px 12px;
+    }
+
+
+    .info_row {
+        grid-template-columns: 1fr;
+    }
+
+
+    .info_row .label {
+        padding-right: 0;
+    }
+
+
+    footer nav a {
+        display: inline-block;
+
+        margin: 3px 5px;
+    }
+}

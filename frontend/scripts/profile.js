@@ -1,6 +1,3 @@
-const API_URL = "http://127.0.0.1:8000";
-
-
 /*
     GET USER ID FROM URL
 
@@ -554,6 +551,8 @@ function populateProfile(profile) {
 */
 
 async function loadProfile() {
+
+    await ensureFrontendConfig();
 
     /*
         A profile page needs:

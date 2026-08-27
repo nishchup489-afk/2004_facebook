@@ -4,6 +4,7 @@ from .university import router as university_router
 from .me import router as me_router
 from .search import router as search_router
 from .friends import router as friends_router
+from .courses import router as courses_router
 
 
 routers = (
@@ -12,5 +13,6 @@ routers = (
     profile_router,
     me_router,
     search_router,
-    friends_router
+    friends_router,
+    courses_router
 )
