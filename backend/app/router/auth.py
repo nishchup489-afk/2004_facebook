@@ -32,12 +32,8 @@ router = APIRouter(
 COOKIE_NAME = os.getenv("COOKIE_NAME")
 
 COOKIE_MAX_AGE = int(
-    os.getenv(
-        "COOKIE_MAX_AGE",
-        "604800"
-    )
+    os.getenv("COOKIE_MAX_AGE", 604800)
 )
-
 
 def _set_session_cookie(
     response: Response,
@@ -52,7 +48,7 @@ def _set_session_cookie(
 
         secure=True,  # True in production with HTTPS
 
-        samesite="lax",
+        samesite="none",
 
         max_age=COOKIE_MAX_AGE,
 
