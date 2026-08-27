@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Search | Thefacebook</title>
+
+    <link
+        rel="stylesheet"
+        href="/frontend/styles/search.css"
+    >
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            [ thefacebook ]
+        </div>
+
+    </header>
+
+
+    <!-- TOP BAR -->
+
+    <div class="top_bar">
+
+        <span>
+            Search
+        </span>
+
+        <span class="top_links">
+
+            <a
+                href="#"
+                id="homeLink"
+            >
+                home
+            </a>
+
+            |
+
+            <a
+                href="#"
+                id="profileLink"
+            >
+                my profile
+            </a>
+
+            |
+
+            <a
+                href="#"
+                id="logoutLink"
+            >
+                logout
+            </a>
+
+        </span>
+
+    </div>
+
+
+    <!-- MAIN LAYOUT -->
+
+    <div class="layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+
+            <!-- QUICK SEARCH -->
+
+            <section class="quick_search">
+
+                <input
+                    type="text"
+                    id="quickSearch"
+                >
+
+                <button id="quickSearchButton">
+                    go
+                </button>
+
+                <div class="quick_search_label">
+                    quick search
+                </div>
+
+            </section>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="side_nav">
+
+                <a
+                    href="#"
+                    id="sideProfileLink"
+                >
+                    My Profile
+                </a>
+
+                <a href="/frontend/friends.html">
+                    My Friends
+                </a>
+
+                <a href="/frontend/courses.html">
+                    My Courses
+                </a>
+
+                <a href="/frontend/search.html">
+                    Search
+                </a>
+
+                <a href="/frontend/complete_profile.html">
+                    Edit Profile
+                </a>
+
+            </nav>
+
+
+        </aside>
+
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main_content">
+
+
+            <!-- SEARCH BOX -->
+
+            <section class="box">
+
+                <div class="box_header">
+                    Search Thefacebook
+                </div>
+
+                <div class="box_content">
+
+                    <form
+                        id="searchForm"
+                        class="search_form"
+                    >
+
+                        <div class="form_row">
+
+                            <label for="searchInput">
+                                Name:
+                            </label>
+
+                            <input
+                                type="text"
+                                id="searchInput"
+                                name="q"
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="schoolFilter">
+                                School:
+                            </label>
+
+                            <select
+                                id="schoolFilter"
+                                name="school"
+                            >
+                                <option value="">
+                                    All Schools
+                                </option>
+                            </select>
+
+                        </div>
+
+
+                        <div class="form_row">
+
+                            <label for="statusFilter">
+                                Status:
+                            </label>
+
+                            <select
+                                id="statusFilter"
+                                name="status"
+                            >
+                                <option value="">
+                                    Any
+                                </option>
+
+                                <option value="student">
+                                    Student
+                                </option>
+
+                                <option value="alumni">
+                                    Alumni
+                                </option>
+
+                                <option value="faculty">
+                                    Faculty
+                                </option>
+
+                                <option value="staff">
+                                    Staff
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form_actions">
+
+                            <button
+                                type="submit"
+                                id="searchButton"
+                            >
+                                Search
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- SEARCH INFO -->
+
+            <section
+                class="box"
+                id="searchInfoBox"
+            >
+
+                <div class="box_header">
+                    Search Results
+                </div>
+
+                <div
+                    class="box_content"
+                    id="searchInfo"
+                >
+
+                    Enter a name to search
+                    Thefacebook directory.
+
+                </div>
+
+            </section>
+
+
+
+            <!-- RESULTS -->
+
+            <section
+                class="box"
+                id="resultsBox"
+            >
+
+                <div class="box_header">
+
+                    <span>
+                        People
+                    </span>
+
+                    <span
+                        class="result_count"
+                        id="resultCount"
+                    >
+                        0 results
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="results"
+                    id="searchResults"
+                >
+
+                    <div class="empty_results">
+
+                        No search has been made yet.
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <nav>
+
+            <a href="/frontend/about.html">
+                about
+            </a>
+
+            <a href="/frontend/contact.html">
+                contact
+            </a>
+
+            <a href="/frontend/faq.html">
+                faq
+            </a>
+
+            <a href="/frontend/terms.html">
+                terms
+            </a>
+
+            <a href="/frontend/privacy.html">
+                privacy
+            </a>
+
+        </nav>
+
+
+        <div>
+
+            a Mark Zuckerberg production
+
+            <br>
+
+            <span>
+                Thefacebook &copy; 2004
+            </span>
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+
+<script src="/frontend/scripts/search.js"></script>
+
+</body>
+
+</html>

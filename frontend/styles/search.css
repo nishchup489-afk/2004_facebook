@@ -1,0 +1,558 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 12px;
+}
+
+
+a {
+    color: #3b5998;
+
+    text-decoration: none;
+}
+
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* PAGE */
+
+.page {
+    width: 900px;
+
+    margin: 20px auto;
+
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+}
+
+
+/* HEADER */
+
+.header {
+    height: 76px;
+
+    background: #3b5998;
+
+    border-bottom: 1px solid #133783;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    padding:
+        0
+        18px
+        10px;
+}
+
+
+.logo {
+    color: #ffffff;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    letter-spacing: -1px;
+}
+
+
+/* TOP BAR */
+
+.top_bar {
+    height: 32px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 0 12px;
+
+    background: #f7f7f7;
+
+    border-bottom: 1px solid #cccccc;
+
+    font-weight: bold;
+}
+
+
+.top_links {
+    font-weight: normal;
+
+    color: #999999;
+}
+
+
+.top_links a {
+    margin: 0 4px;
+}
+
+
+/* LAYOUT */
+
+.layout {
+    display: grid;
+
+    grid-template-columns:
+        170px
+        1fr;
+
+    gap: 12px;
+
+    padding: 12px;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    min-width: 0;
+}
+
+
+/* QUICK SEARCH */
+
+.quick_search {
+    background: #f7f7f7;
+
+    border: 1px solid #cccccc;
+
+    padding: 7px;
+
+    margin-bottom: 10px;
+}
+
+
+.quick_search input {
+    width: 108px;
+
+    height: 22px;
+
+    border: 1px solid #777777;
+
+    padding: 2px 4px;
+
+    font-size: 11px;
+}
+
+
+.quick_search button {
+    height: 22px;
+
+    padding: 0 7px;
+
+    margin-left: 2px;
+
+    border: 1px solid #777777;
+
+    background: #eeeeee;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+
+.quick_search button:hover {
+    background: #dddddd;
+}
+
+
+.quick_search_label {
+    margin-top: 4px;
+
+    text-align: center;
+
+    color: #777777;
+
+    font-size: 10px;
+}
+
+
+/* SIDE NAVIGATION */
+
+.side_nav {
+    border-top: 1px solid #cccccc;
+}
+
+
+.side_nav a {
+    display: block;
+
+    padding: 5px 7px;
+
+    border-bottom: 1px solid #dddddd;
+
+    font-weight: bold;
+}
+
+
+.side_nav a:hover {
+    background: #f3f5fa;
+
+    text-decoration: none;
+}
+
+
+/* MAIN */
+
+.main_content {
+    min-width: 0;
+}
+
+
+/* BOX */
+
+.box {
+    margin-bottom: 12px;
+
+    border: 1px solid #b7c3dc;
+
+    background: #ffffff;
+}
+
+
+.box_header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 5px 7px;
+
+    background: #d8dfea;
+
+    border-bottom: 1px solid #b7c3dc;
+
+    color: #3b5998;
+
+    font-weight: bold;
+}
+
+
+.box_content {
+    padding: 10px;
+}
+
+
+/* SEARCH FORM */
+
+.search_form {
+    width: 100%;
+}
+
+
+.form_row {
+    display: grid;
+
+    grid-template-columns:
+        90px
+        1fr;
+
+    gap: 8px;
+
+    align-items: center;
+
+    margin-bottom: 8px;
+}
+
+
+.form_row label {
+    text-align: right;
+
+    font-weight: bold;
+
+    color: #555555;
+}
+
+
+.form_row input,
+.form_row select {
+    width: 280px;
+
+    height: 24px;
+
+    border: 1px solid #777777;
+
+    background: #ffffff;
+
+    padding: 2px 5px;
+
+    font-size: 11px;
+}
+
+
+.form_actions {
+    padding-left: 98px;
+
+    margin-top: 10px;
+}
+
+
+.form_actions button {
+    padding: 3px 12px;
+
+    border: 1px solid #777777;
+
+    background: #eeeeee;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+
+.form_actions button:hover {
+    background: #dddddd;
+}
+
+
+/* SEARCH INFO */
+
+#searchInfo {
+    color: #555555;
+}
+
+
+.result_count {
+    font-weight: normal;
+
+    font-size: 10px;
+
+    color: #666666;
+}
+
+
+/* RESULTS */
+
+.results {
+    padding: 0;
+}
+
+
+.empty_results {
+    padding: 15px;
+
+    color: #777777;
+
+    font-style: italic;
+
+    text-align: center;
+}
+
+
+/* PERSON RESULT */
+
+.person_result {
+    display: grid;
+
+    grid-template-columns:
+        90px
+        1fr
+        120px;
+
+    gap: 10px;
+
+    padding: 10px;
+
+    border-bottom: 1px solid #dddddd;
+}
+
+
+.person_result:last-child {
+    border-bottom: none;
+}
+
+
+.person_picture {
+    text-align: center;
+}
+
+
+.person_picture img {
+    width: 70px;
+
+    height: 85px;
+
+    object-fit: cover;
+
+    border: 1px solid #777777;
+
+    background: #eeeeee;
+}
+
+
+/* PERSON INFO */
+
+.person_info {
+    min-width: 0;
+}
+
+
+.person_name {
+    margin-bottom: 5px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+.person_details {
+    line-height: 1.5;
+
+    color: #444444;
+}
+
+
+.person_details .label {
+    font-weight: bold;
+
+    color: #666666;
+}
+
+
+/* RESULT ACTIONS */
+
+.person_actions {
+    text-align: right;
+}
+
+
+.person_actions a {
+    display: block;
+
+    margin-bottom: 6px;
+}
+
+
+.person_actions button {
+    padding: 3px 7px;
+
+    border: 1px solid #777777;
+
+    background: #eeeeee;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+
+.person_actions button:hover {
+    background: #dddddd;
+}
+
+
+/* FOOTER */
+
+footer {
+    margin-top: 10px;
+
+    padding: 12px;
+
+    border-top: 1px solid #cccccc;
+
+    text-align: center;
+
+    color: #777777;
+
+    font-size: 10px;
+}
+
+
+footer nav {
+    margin-bottom: 8px;
+}
+
+
+footer nav a {
+    margin: 0 6px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 940px) {
+
+    .page {
+        width: calc(100% - 20px);
+
+        margin: 10px;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+
+    .form_row {
+        grid-template-columns: 1fr;
+    }
+
+
+    .form_row label {
+        text-align: left;
+    }
+
+
+    .form_row input,
+    .form_row select {
+        width: 100%;
+    }
+
+
+    .form_actions {
+        padding-left: 0;
+    }
+
+
+    .person_result {
+        grid-template-columns:
+            75px
+            1fr;
+    }
+
+
+    .person_actions {
+        grid-column:
+            1
+            /
+            -1;
+
+        text-align: left;
+
+        padding-left: 85px;
+    }
+
+}
