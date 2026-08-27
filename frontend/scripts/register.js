@@ -78,7 +78,7 @@ async function Register(e) {
 
         showSuccess("Registered successfully.");
 
-        window.location.href = "/frontend/complete_profile.html";
+        window.location.href = "/complete_profile.html";
 
     } catch (error) {
         console.error(error);

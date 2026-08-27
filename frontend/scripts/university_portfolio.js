@@ -14,7 +14,7 @@ const admissionData = sessionStorage.getItem(
 
 if (!admissionData) {
     window.location.href =
-        "/frontend/university.html";
+        "/university.html";
 }
 
 
@@ -23,7 +23,7 @@ const student = JSON.parse(admissionData);
 
 if (student.student_id !== studentId) {
     window.location.href =
-        "/frontend/university.html";
+        "/university.html";
 }
 
 

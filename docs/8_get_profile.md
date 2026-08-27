@@ -203,7 +203,7 @@ The frontend handles that by sending the user back to login:
 ```javascript
 if (response.status === 401) {
     window.location.href =
-        "/frontend/index.html";
+        "/index.html";
 }
 ```
 

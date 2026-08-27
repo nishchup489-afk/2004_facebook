@@ -58,7 +58,7 @@ async function loadFrontendConfig() {
     try {
 
         const response = await fetch(
-            "/frontend/.env",
+            "/.env",
             {
                 cache: "no-store"
             }

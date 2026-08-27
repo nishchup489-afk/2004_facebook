@@ -283,7 +283,7 @@ sessionStorage.setItem(
 Then it redirects to:
 
 ```text
-/frontend/university_portfolio.html?student_id=...
+/university_portfolio.html?student_id=...
 ```
 
 That page shows:

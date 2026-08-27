@@ -91,7 +91,7 @@ The profile page has a picture area.
 Right now it points to:
 
 ```html
-src="/frontend/assets/default-profile.png"
+src="/assets/default-profile.png"
 ```
 
 Later this should come from the database:

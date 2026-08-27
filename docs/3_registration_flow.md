@@ -279,7 +279,7 @@ message
 Then the frontend redirects:
 
 ```text
-/frontend/complete_profile.html
+/complete_profile.html
 ```
 
 ---

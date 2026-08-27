@@ -1,5 +1,5 @@
 const DEFAULT_PROFILE_PICTURE =
-    "/frontend/assets/default-profile.png";
+    "/assets/default-profile.png";
 
 
 const logoutLink =
@@ -68,7 +68,7 @@ function profileUrl(
 ) {
 
     return (
-        `/frontend/profile.html` +
+        `/profile.html` +
         `?user_id=${userId}`
     );
 }
@@ -170,7 +170,7 @@ async function getJson(
         if (response.status === 401) {
 
             window.location.href =
-                "/frontend/index.html";
+                "/index.html";
 
             return null;
         }
@@ -634,7 +634,7 @@ function addFriendshipAction(
             document.createElement("a");
 
         respondLink.href =
-            "/frontend/friends.html";
+            "/friends.html";
 
         respondLink.textContent =
             "Respond";
@@ -992,7 +992,7 @@ function runQuickSearch() {
     }
 
     window.location.href =
-        `/frontend/search.html?q=${
+        `/search.html?q=${
             encodeURIComponent(query)
         }`;
 }
@@ -1021,7 +1021,7 @@ async function logOut(event) {
 
 
         window.location.href =
-            "/frontend/index.html";
+            "/index.html";
 
 
     } catch (error) {
