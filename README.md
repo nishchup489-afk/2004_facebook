@@ -7,7 +7,7 @@
 <!-- Add the LinkedIn, X, and blog URLs here when they are published. -->
 <p align="center">
   <a href="https://2004-facebook.vercel.app"><strong>Live Preview</strong></a> ·
-  <strong>LinkedIn Post — coming soon</strong> ·
+  <a href="https://lnkd.in/p/e3PxnCqb"><strong>LinkedIn Post</strong> </a>·
   <strong>X Post — coming soon</strong> ·
   <strong>Detailed Blog — coming soon</strong>
 </p>
