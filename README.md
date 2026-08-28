@@ -8,7 +8,7 @@
 <p align="center">
   <a href="https://2004-facebook.vercel.app"><strong>Live Preview</strong></a> ·
   <a href="https://lnkd.in/p/e3PxnCqb"><strong>LinkedIn Post</strong> </a>·
-  <strong>X Post — coming soon</strong> ·
+  <a href="https://x.com/Nishchup489/status/2093128692843069785?s=20"><strong>X Post</strong> </a>· ·
   <strong>Detailed Blog — coming soon</strong>
 </p>
 
